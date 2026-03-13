@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/detail.css" %}">
+{% endblock  %}
+
+{% block content %}
+<div class="container fonts mt-md-2 pt-md-2">
+   
+    
+
+    <div class="row g-0 mt-3 detail-wrapper">
+     <div class="col-md-7 gallery-sticky">
+      <div class="swiper mobile-swiper d-md-none">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="{{ product.thumbnail.url }}" class="img-fluid" alt="thumb">
+            </div>
+            {% for img in product.gallery.all %}
+            <div class="swiper-slide">
+                <img src="{{ img.image.url }}" class="img-fluid" alt="gallery">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <div class="desktop-gallery d-none d-md-flex px-3">
+        <div class="thumb-list">
+            <img src="{{ product.thumbnail.url }}" class="img-fluid thumb-item thumb-active" onclick="changeImage(this.src, this)">
+            {% for img in product.gallery.all %}
+            <img src="{{ img.image.url }}" class="img-fluid thumb-item" onclick="changeImage(this.src, this)">
+            {% endfor %}
+        </div>
+        <div class="main-display">
+            <img id="mainImg" src="{{ product.thumbnail.url }}" class="img-fluid">
+        </div>
+      </div>
+     </div>
+
+        <div class="col-md-5 details-col">
+            <small >
+             <nav aria-label="breadcrumb" class=" d-none d-md-block">
+               <ol class="breadcrumb small">
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-dark">Home</a></li>
+                <li class="breadcrumb-item active">{{ product.category.name }}</li>
+                <li class="breadcrumb-item active fw-bold">{{ product.brand }}</li>
+               </ol>
+             </nav>
+           </small>
+            <h1 class="brand-name">{{ product.brand|upper }}</h1>
+            <p class="product-name">{{ product.name }}</p>
+
+            <div class="price-section pt-2 border-top">
+                {% if product.original_price and product.discount_price > 0 %}
+                <span class="dicount-val">₹{{ product.discount_price }}</span>
+                <span class="original-val ps-2">MRP <del>₹{{ product.original_price }}</del></span>
+                <small class="discount-percent bg-pink small p-1 rounded text-white">{{ product.discount_percentage }}% OFF</small>
+                {% else %}
+                <span class="dicount-val">₹{{ product.original_price }}</span>
+                {% endif %}
+                <p class="text-success small fw-bold mt-1">inclusive of all taxes</p>
+            </div>
+            {% if color_variants %}
+            <div class="color-variants-section mt-2 mb-3">
+                <div class="d-flex align-items-center mb-2">
+                    <h6 class="fw-bold mb-0 me-2 small">MORE COLORS</h6>
+                </div>
+    
+                <div class="d-flex gap-2 flex-wrap">
+                    <div class="swatch-wrapper active">
+                        <img src="{{ product.thumbnail.url }}" class="img-fluid swatch-img" alt="{{ product.color.name }}">
+                    </div>
+
+                    {% for variant in color_variants %}
+                    <a href="{% url 'product_detail' variant.slug %}" 
+                     class="swatch-wrapper text-decoration-none"
+                     data-variant-img="{{ variant.thumbnail.url }}">
+                      <img src="{{ variant.thumbnail.url }}" class="img-fluid swatch-img" alt="{{ variant.color.name }}">
+                    </a>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+            <div class="mt-2">
+                <div class="d-flex justify-content-between">
+                    <h6 class="fw-bold">SELECT SIZE</h6>
+                    <span class="text-pink fw-bold small cursor-pointer" >SIZE CHART ></span>
+                </div>
+                <div class="d-flex gap-md-3 gap-4 px-md-0 px-4 mt-3">
+                    {% for var in product.variations.all %}
+                    <button class="size-btn" id="size-btns">{{ var.size.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="btn-container  d-flex gap-3 mt-4 W-100">
+                    <button class="btn btn-group text-center btn-outline-dark   fw-semibold ">
+                    <i class="fa-solid fa-bag-shopping me-2"></i> ADD TO CART
+                    </button>
+                
+                    <button class="btn btn-group text-center btn-pink  fw-semibold">
+                     BUY NOW
+                    </button>
+                
+            </div>
+
+            <hr class="mt-5">
+
+            <div class="mt-4">
+                <h6 class="fw-bold"><i class="fa-solid fa-truck me-2"></i> DELIVERY OPTIONS</h6>
+                <div class="input-group mt-2" >
+                    <input type="text" class="form-control p-2" placeholder="Enter Pincode">
+                    <button class="btn text-danger check-btn fw-bold" type="button">CHECK</button>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h6 class=" mb-3  desc-head">PRODUCT DETAILS</h6>
+                <p class="small product-desc text-muted" >{{ product.description }}</p>
+            </div>
+
+            <div id="reviews" class="mt-5 pt-4 border-top">
+                <h6 class=" text-center head-text">RATINGS & REVIEWS</h6>
+                <div class="text-center py-4">
+                    <p class="text-muted">No reviews for this product yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if related_products %}
+    <div class="container-fluid mt-5 pt-5 border-top mb-5">
+        <h5 class=" mb-4 text-center head-text">SIMILAR PRODUCTS</h5>
+
+        <div class="similar-swiper swiper d-md-none">
+            <div class="swiper-wrapper">
+                {% for related in related_products %}
+                <div class="swiper-slide">
+                    <a href="{% url 'product_detail' related.slug %}" class="text-decoration-none text-dark">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="img-wrapper">
+                                <img src="{{ related.thumbnail.url }}" class=" card-img rounded-0">
+                            </div>
+                            <div class="card-body p-md-2 p-1">
+                                <h6 class="fw-bold mb-0 small similar-product-head my-2">{{ related.brand|upper }}</h6>
+                                <p class="text-muted small mb-1 similar-product-name  text-truncate">{{ related.name }}</p>
+                                {% if related.original_price and related.discount_price > 0 %}
+                                <span class="fw-bold similar-product-price ">₹{{ related.discount_price }}</span>
+                                <span class=" text-muted small similar-product-org-price"><del>₹{{ related.original_price }}</del></span>
+                                <span class="small fw-semibold text-success similar-percent">({{ related.discount_percentage }}% off)</span>
+                                {% else %}
+                                <span class="fw-bold small">₹{{ related.original_price }}</span>
+                                {% endif %}
+                                <button class="btn cart-btn w-100 p-2 mt-1">Add to Cart</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="row row-cols-2 row-cols-md-5 g-2 d-none d-md-flex">
+            {% for related in related_products %}
+            <div class="col">
+                <a href="{% url 'product_detail' related.slug %}" class="text-decoration-none text-dark">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="img-wrapper">
+                            <img src="{{ related.thumbnail.url }}" class=" card-img rounded-0">
+                        </div>
+                        <div class="card-body p-md-2 p-3">
+                            <h6 class="fw-bold mb-0 small similar-product-head my-2">{{ related.brand|upper }}</h6>
+                            <p class="text-muted small mb-1 similar-product-name text-truncate">{{ related.name }}</p>
+                            {% if related.original_price and related.discount_price > 0 %}
+                            <span class="fw-bold ">₹{{ related.discount_price }}</span>
+                            <span class=" text-muted small"><del>₹{{ related.original_price }}</del></span>
+                            <span class="small fw-semibold text-success">({{ related.discount_percentage }}% off)</span>
+                            {% else %}
+                            <span class="fw-bold small">₹{{ related.original_price }}</span>
+                            {% endif %}
+                            <button class="btn cart-btn w-100 p-2 mt-1">Add to Cart</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static "js/detail.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,75 @@
+body{
+    background-color: #ce1c7e0c !important;
+}
+.card-container{
+    width: 100%;
+}
+
+.submit-btn{
+    background-color: #fe296d;
+    color: white;
+    border-radius: 2px !important;
+}
+
+.submit-btn:hover{
+    background-color: white;
+    border: 1.3px solid #fe296d !important;
+    color: #fe296d !important;
+    transition: 0.3s;
+}
+
+.g-btn{
+    font-size: medium;
+    border: 1.3px solid rgba(0, 0, 0, 0.119);
+}
+
+.g-img{
+    width: 23px;
+    height: 23px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
+
+.card{
+    padding: 20px;
+    background-color: #fff;
+    overflow: visible;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+    height: fit-content !important;
+}
+.input-box{
+    width: 100%;
+    outline: none;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.237);
+    padding: 4px !important;
+}
+
+.or-line{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.or-line::before,
+.or-line::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #d1d5db;
+}
+
+.or-line small{
+    font-size: small;
+}
+
+
+@media (max-width : 992px){
+    .card-container{
+        height: 87vh;
+        width: 100%;
+    }
+}

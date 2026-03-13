@@ -1,0 +1,31 @@
+body{
+    background-color: #ce1c7e0c !important;
+}
+
+.otp-btn{
+    width: 100%;
+    background-color: #fe296d !important;
+    border-radius: 2px !important;
+    color: #ffffff !important;
+}
+
+.otp-btn:hover{
+    background-color: #ffffff !important;
+    border: 1.5px solid #fe296d !important;
+    color: #fe296d !important;
+    transition: 0.3s;
+}
+
+.otp-input input{
+    border-radius: 2px !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.card{
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+}
+
+.resendBtn{
+    font-size: smaller !important;
+}

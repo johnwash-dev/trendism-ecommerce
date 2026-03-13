@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/verify_otp.css" %}">
+{% endblock  %}
+
+{% block content %}
+<div class="card-container d-flex justify-content-center align-items-center my-5">
+  <div class="card p-4 col-lg-3 col-md-4 col-sm-6 col-10 border-0">
+    <div class="card-body p-3">
+      <form action="" method="POST" id="input-form">
+        {% csrf_token %}
+        <h2 class="text-center mb-3 ">Verification</h2>
+        <div class="otp-input d-flex justify-content-center gap-2 overflow-x-hidden mb-0 " id="otp-input">
+          <input type="text" inputmode="numeric" maxlength="1" class="form-control {% if error %} border-danger {% endif %} px-0  text-center" >
+          <input type="text" inputmode="numeric" maxlength="1" class="form-control {% if error %} border-danger {% endif %} px-0  text-center" >
+          <input type="text" inputmode="numeric" maxlength="1" class="form-control {% if error %} border-danger {% endif %} px-0  text-center" >
+          <input type="text" inputmode="numeric" maxlength="1" class="form-control {% if error %} border-danger {% endif %} px-0  text-center" >
+          <input type="text" inputmode="numeric" maxlength="1" class="form-control {% if error %} border-danger {% endif %} px-0  text-center" >
+          <input type="text" inputmode="numeric" maxlength="1" class="form-control {% if error %} border-danger {% endif %} px-0  text-center" >
+        </div>
+        <input type="hidden" name="otp" id="otp">
+        <button type="button" id="resend-btn" class="btn btn-link p-0 text-decoration-none {% if error %}mb-0 {% else %} mb-2{% endif %} ms-auto d-block resendBtn"  data-url="{% url 'resend_otp' %}" disabled>Resend(30s)</button>
+        {% if error %}
+        <p class="text-danger server-error">{{ error }}</p>
+        {% endif %}
+        <button id="verify-btn" class="btn otp-btn " type="submit">verify Otp</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}
+
+{% block extra_js %}
+<script src="{% static "js/otp_verify.js" %}"></script>
+{% endblock  %}

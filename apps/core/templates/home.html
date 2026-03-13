@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/home.css" %}">
+{% endblock  %}
+
+{% block content %}
+<div class="banner-container ">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {% for banner in banners %}
+            <div class="swiper-slide">
+                <a href="{{ banner.link }}">
+                    <img src="{{ banner.image.url }}" class="banner-img" alt="{{ banner.title }}">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+<div class="category-section container">
+    <h3 class="text-center mb-4  font-title category-title ">TRENDING CATEGORIES</h3>
+    
+    <div class="swiper categorySwiper">
+        <div class="swiper-wrapper">
+            {% for trend_cat in trending_categories %}
+            <div class="swiper-slide">
+                <a href="/category/{{ trend_cat.slug }}/" class="text-decoration-none text-dark d-block">
+                    <div class="cat-img-container shadow-sm border">
+                        {% if trend_cat.image %}
+                            <img src="{{ trend_cat.image.url }}" alt="{{ trend_cat.name }}">
+                        {% else %}
+                            <img src="{% static 'images/default_category.png' %}" class="opacity-25" alt="default">
+                        {% endif %}
+                    </div>
+                    <div class="text-center">
+                        <p class="category-name text-truncate px-2">{{ trend_cat.name }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container product-container my-2">
+    <h3 class="text-center  mb-5 font-title">FEATURED PRODUCTS</h3>
+    <div class="row">
+        {% for product in featured_product %}
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100 product-card shadow-sm border-0">
+              <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none text-dark">
+                <div class="image-wrapper text-center position-relative">
+                    <img src="{{ product.thumbnail.url }}" class="card-img-top img-fluid " alt="{{ product.name }}">
+                    <a href="#" class="wishlist-icon position-absolute top-0 end-0 p-2 text-dark">
+                        <i class="fa-solid fa-heart "></i>
+                    </a>
+                    {% if product.get_discount_percent > 0 %}
+                    <div class="badge-container">
+                     <span class="badge badge-danger px-lg-2 px-md-2 px-1 fw-semibold py-1">{{ product.discount_percentage }}% OFF</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body d-flex flex-column  pt-0">
+                    <h6 class=" fw-semibold  mb-1">{{ product.brand|upper }}</h6>
+                    <p class="card-title small text-muted mb-2">{{ product.name }}</p>
+                    
+                    <div class="price-wrapper mb-3">
+                        {% if product.discount_price and product.discount_price > 0 %}
+                        <span class="h5 font-weight-bold text-dark">₹{{ product.discount_price }}</span>
+                        <span class="text-muted small ml-2"><del>₹{{ product.original_price }}</del></span>
+                        {% else %}
+                        <span class="h5 font-weight-bold">₹{{ product.original_price }}</span>
+                        {% endif %}
+                    </div>
+              </a>
+                    <a href="#" class="btn btn-dark btn-block mt-auto font-weight-bold shadow-sm">Add to card</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static "js/home.js" %}"></script>
+{% endblock  %}

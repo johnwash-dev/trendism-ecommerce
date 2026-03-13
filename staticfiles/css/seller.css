@@ -1,0 +1,28 @@
+body{
+    background-color: #ce1c7e0c !important;
+}
+
+.card{
+    height: fit-content !important;
+}
+
+input, textarea{
+    width: 100%;
+    outline: none;
+    border-radius: 2px !important;
+    border: 1px solid rgba(0, 0, 0, 0.237);
+    padding: 7px !important;
+}
+
+.btn{
+    background-color: #fe296d;
+    color: white;
+    border-radius: 2px !important;
+}
+
+.btn:hover{
+    background-color: white;
+    border: 1.3px solid #fe296d !important;
+    color: #fe296d !important;
+    transition: 0.3s
+}

@@ -1,0 +1,66 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Trendism {% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    {% bootstrap_css %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+    <div class="loader" id="loader-container">
+       <div class="loader-spinner"></div>
+    </div>
+    <div class="container d-flex justify-content-center">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mt-2 alert-dismissible fade show" id="alert-msg" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        {% if error and request.resolver_match.url_name != 'verify_otp' %}
+            <div class="alert alert-danger alert-dismissible fade show" id="alert-msg" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endif %}
+    </div>
+
+    
+        {% block content %}{% endblock %}
+    
+    {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'verify_otp' and request.resolver_match.url_name != 'become_seller' %}
+    {% include 'footer.html' %}
+    {% endif %}
+
+    {% bootstrap_javascript %}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static "js/script.js" %}"></script>
+
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
