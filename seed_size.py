@@ -2,7 +2,7 @@ import os
 import django
 import logging
 import sys
-# Professional Logging setup
+
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
