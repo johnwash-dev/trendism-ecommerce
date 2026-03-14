@@ -86,18 +86,19 @@ WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME')    ,
-        'USER': os.getenv('DB_USER'), 
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'), 
+        'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
         'OPTIONS': {
             'ssl': {
-                'ca': os.path.join(BASE_DIR, 'ca.pem') 
+                # 'ca' path-ah os.path.join use panni safe-ah kudunga
+                'ca': str(BASE_DIR / 'ca.pem')
             },
             'autocommit': True,
         },
-    }
+   }
 }
 
 
