@@ -4,8 +4,8 @@ import cloudinary.uploader
 
 cloudinary.config(
     cloud_name="dsrkmqz5u",
-    api_key="252224528629822",
-    api_secret="52VLu5hVgtHL1PyWi-mawCYDrMY"
+    api_key="",
+    api_secret=""
 )
 
 MEDIA_ROOT = "media"
