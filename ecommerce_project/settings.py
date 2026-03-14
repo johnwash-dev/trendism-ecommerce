@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG') == 'True'
+
 
 
 
@@ -34,7 +33,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -85,11 +86,17 @@ WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQLDATABASE'),
-        'USER': os.environ.get('MYSQLUSER'),
-        'PASSWORD': os.environ.get('MYSQLPASSWORD'),
-        'HOST': os.environ.get('MYSQLHOST'),
-        'PORT': os.environ.get('MYSQLPORT'),
+        'NAME': os.getenv('DB_NAME')    ,
+        'USER': os.getenv('DB_USER'), 
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'), 
+        'PORT': os.getenv('DB_PORT'),
+        'OPTIONS': {
+            'ssl': {
+                'ca': os.path.join(BASE_DIR, 'ca.pem') 
+            },
+            'autocommit': True,
+        },
     }
 }
 
@@ -204,3 +211,16 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://vivacious-possibility-production.up.railway.app',
+]
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+    'MEDIA_TAG': 'media',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
