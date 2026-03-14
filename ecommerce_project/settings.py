@@ -22,7 +22,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'web-production-73b47.up.railway.app',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -84,21 +88,20 @@ WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+   'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),  
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
         'OPTIONS': {
             'ssl': {
-                # 'ca' path-ah os.path.join use panni safe-ah kudunga
-                'ca': str(BASE_DIR / 'ca.pem')
+                'ca': os.path.join(BASE_DIR, 'ca.pem'),
             },
-            'autocommit': True,
-        },
-   }
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
+        }
+    }
 }
 
 
@@ -225,3 +228,7 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-73b47.up.railway.app',
+]
