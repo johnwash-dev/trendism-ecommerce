@@ -199,6 +199,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pureheart70156@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'pureheart70156@gmail.com'
+EMAIL_TIMEOUT = 30
 
 SOCIALACCOUNT_ADAPTER = 'apps.accounts.adapters.CustomSocialAccountAdapter'
 
@@ -213,6 +214,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
     'https://vivacious-possibility-production.up.railway.app',

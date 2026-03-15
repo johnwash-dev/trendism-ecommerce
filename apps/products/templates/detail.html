@@ -89,9 +89,9 @@
                     <h6 class="fw-bold">SELECT SIZE</h6>
                     <span class="text-pink fw-bold small cursor-pointer" >SIZE CHART ></span>
                 </div>
-                <div class="d-flex gap-md-3 gap-4 px-md-0 px-4 mt-3">
+                <div class="d-flex gap-md-3 gap-2 px-md-0 px-3 mt-3">
                     {% for var in product.variations.all %}
-                    <button class="size-btn" id="size-btns">{{ var.size.name }}</button>
+                    <button class="size-btn  " id="size-btns">{{ var.size.name }}</button>
                     {% endfor %}
                 </div>
             </div>
