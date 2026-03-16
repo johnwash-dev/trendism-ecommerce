@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Allowed native click mechanism instead of intercepting
       // Mobile Safari often blocks window.location.assign if e.preventDefault() is used inside a tap event.
       menu.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent the document click listener from instantly hiding the menu
         const link = e.target.closest('a');
         if (link && link.href && !link.href.endsWith("#")) {
           // DO NOT prevent default here so mobile browsers can natively navigate
