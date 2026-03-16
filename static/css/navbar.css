@@ -43,7 +43,8 @@ html, body {
 
 
 .profile-dropdown {
-    position: relative;
+    position: relative !important;
+    z-index: 2000 !important;
 }
 
 .profile-dropdown .dropdown-menu {
@@ -58,14 +59,15 @@ html, body {
     margin-top: 25px !important;
     left: 50% !important;
     right: auto !important;
-    transform: translateX(-50%) translateY(15px); 
+    transform: translateX(-50%) translateY(15px);
 }
 
 .profile-dropdown .dropdown-menu.show {
     visibility: visible;
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-    pointer-events: auto;
+    pointer-events: auto !important;
+    z-index: 2001 !important; 
 }
 
 
@@ -142,8 +144,10 @@ html, body {
     font-size: small !important;
     transition: 0.3s ;
     position: relative !important;
-    z-index: 9999 !important;
+    z-index: 2002 !important;
     pointer-events: auto !important;
+    display: block !important; 
+    cursor: pointer !important;
 }
 
 .login-btn:hover{
