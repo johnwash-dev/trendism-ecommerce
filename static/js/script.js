@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
       menu.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", (e) => {
           e.stopPropagation(); // prevent document click from closing early
-          menu.classList.remove("show");
           // do NOT manually redirect
         });
       });
@@ -44,18 +43,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  document.addEventListener("click", (e) => {
-    if (menu && !dropdownWrap.contains(e.target)) {
-      menu.classList.remove("show");
-      icon.classList.remove("borders");
-    }
-  });
+  // document.addEventListener("click", (e) => {
+  //   if (menu && !dropdownWrap.contains(e.target)) {
+  //     menu.classList.remove("show");
+  //     icon.classList.remove("borders");
+  //   }
+  // });
 
   if (alert) {
     setTimeout(function () {
       alert.classList.remove("show");
       alert.classList.add("fade");
-
       setTimeout(function () {
         if (alert.parentNode) {
           alert.remove();
