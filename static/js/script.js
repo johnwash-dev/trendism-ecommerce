@@ -48,12 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
   }
 
-  document.addEventListener("click", (e) => {
-    if (menu && !dropdownWrap.contains(e.target)) {
-      menu.classList.remove("show");
-      icon.classList.remove("borders");
-    }
-  });
+  // document.addEventListener("click", (e) => {
+  //   if (menu && !dropdownWrap.contains(e.target)) {
+  //     menu.classList.remove("show");
+  //     icon.classList.remove("borders");
+  //   }
+  // });
 
   if (alert) {
     setTimeout(function () {
