@@ -141,7 +141,7 @@ html, body {
     font-size: 9px !important;
 }
 
-.login-btn{
+#profileDropdown .login-btn{
     border: 1px solid #fe296d;
     color: #fe296d;
     border-radius: 2px !important;
@@ -149,12 +149,12 @@ html, body {
     font-size: small !important;
     transition: 0.3s ;
     position: relative !important;
-    z-index: 2002 !important;
+    z-index: 10005 !important;
     pointer-events: auto !important;
-    display: block !important; 
+    display: flex !important; 
+    justify-content: center !important;
+    align-items: center !important;
     cursor: pointer !important;
-    min-height: 40px !important;
-    line-height: 40px !important;
 }
 
 @media (hover: hover) {

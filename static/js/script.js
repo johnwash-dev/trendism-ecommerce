@@ -29,13 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.classList.toggle("show");
     });
 
-    menu.addEventListener("click", function (e) {
+    menu.addEventListener("mousedown", function (e) { 
         const targetLink = e.target.closest('a');
         if (targetLink) {
             const url = targetLink.getAttribute("href");
-            if (url && url !== "#" && !url.startsWith("javascript")) {
-                menu.classList.remove("show"); 
-                window.location.href = url;
+            if (url && url !== "#") {
+                window.location.assign(url);
             }
         }
     });
