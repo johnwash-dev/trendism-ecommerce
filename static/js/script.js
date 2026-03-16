@@ -36,6 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('touchstart', function(e) {
+            window.location.href = this.getAttribute('href');
+        });
+    }
+
   if (alert) {
     setTimeout(function () {
       alert.classList.remove("show");
