@@ -41,11 +41,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const loginBtn = document.querySelector('.login-btn');
-    if (loginBtn) {
-        loginBtn.addEventListener('touchstart', function(e) {
-            window.location.href = this.getAttribute('href');
-        });
-    }
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const href = this.getAttribute('href');
+      if (href) {
+        window.location.href = href;
+      }
+    });
+  }
 
   if (alert) {
     setTimeout(function () {
