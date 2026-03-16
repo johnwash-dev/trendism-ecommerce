@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon.classList.remove("borders");
     }
   });
-});
+
 
 
 if (alert) {
