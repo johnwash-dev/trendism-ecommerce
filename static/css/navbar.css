@@ -141,6 +141,9 @@ html, body {
     padding: 5px !important;
     font-size: small !important;
     transition: 0.3s ;
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
 }
 
 .login-btn:hover{
