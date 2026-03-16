@@ -36,9 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
       menu.addEventListener("click", (e) => {
         const link = e.target.closest('a');
         if (link) {
-          const href = link.getAttribute('href');
-          if (href && href !== "#") {
-            window.location.href = href;
+          e.preventDefault();
+          const href = link.href || link.getAttribute('href');
+          if (href && !href.endsWith("#")) {
+            window.location.assign(href);
           }
         }
       });

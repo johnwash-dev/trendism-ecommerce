@@ -28,9 +28,11 @@ html, body {
     padding-top: 25px !important;
 }
 
-.nav-link:hover {
-    border-bottom: 2px solid #fe296d;
-    color: #fe296d !important;
+@media (hover: hover) {
+    .nav-link:hover {
+        border-bottom: 2px solid #fe296d;
+        color: #fe296d !important;
+    }
 }
 
 .icons-container {
@@ -115,17 +117,21 @@ html, body {
     padding: 4px 0;
 }
 
-.mega-links li a:hover {
-    font-weight: 700;
-    color: #282c3f;
+@media (hover: hover) {
+    .mega-links li a:hover {
+        font-weight: 700;
+        color: #282c3f;
+    }
 }
 
 
-.dropdown-item:hover {
-    background-color: #f5f5f6;
-    color: #fe296d !important;
-    font-weight: 600;
-    transition: 0.3s linear !important;
+@media (hover: hover) {
+    .dropdown-item:hover {
+        background-color: #f5f5f6;
+        color: #fe296d !important;
+        font-weight: 600;
+        transition: 0.3s linear !important;
+    }
 }
 
 .icons-container i{
@@ -150,10 +156,12 @@ html, body {
     cursor: pointer !important;
 }
 
-.login-btn:hover{
-    background-color: #fe296d !important;
-    color: white !important;
-    transition: 0.3s ;
+@media (hover: hover) {
+    .login-btn:hover{
+        background-color: #fe296d !important;
+        color: white !important;
+        transition: 0.3s ;
+    }
 }
 
 .search-input{
