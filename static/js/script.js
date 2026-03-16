@@ -33,22 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // allow normal browser navigation
-      menu.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", (e) => {
-          e.stopPropagation(); // prevent document click from closing early
-          // do NOT manually redirect
-        });
+      menu.addEventListener("click", (e) => {
+        e.stopPropagation(); // Stop parent dropdown from closing immediately
       });
     }
 
   }
 
-  // document.addEventListener("click", (e) => {
-  //   if (menu && !dropdownWrap.contains(e.target)) {
-  //     menu.classList.remove("show");
-  //     icon.classList.remove("borders");
-  //   }
-  // });
+  document.addEventListener("click", (e) => {
+    if (menu && !dropdownWrap.contains(e.target)) {
+      menu.classList.remove("show");
+      icon.classList.remove("borders");
+    }
+  });
 
   if (alert) {
     setTimeout(function () {

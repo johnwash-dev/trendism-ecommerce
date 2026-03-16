@@ -54,7 +54,6 @@ html, body {
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.3s ease-in-out;
-    pointer-events: none;
     border-top: none;
     min-width: 200px;
     margin-top: 25px !important;
