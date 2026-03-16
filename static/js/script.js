@@ -25,32 +25,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
       menu.addEventListener("mouseenter", () => clearTimeout(timeout));
     } else {
-      // Mobile Click Logic
-      dropdownWrap.addEventListener("click", (e) => {
-        // e.preventDefault();
+      // --- MOBILE LOGIC (CLICK/TOUCH) ---
+      icon.addEventListener("click", (e) => {
+        e.preventDefault();
         e.stopPropagation();
         menu.classList.toggle("show");
       });
 
+      // Simple Redirection for Mobile (Conflict-illaama)
       menu.addEventListener("click", (e) => {
-        e.stopPropagation(); 
+        const link = e.target.closest('a');
+        if (link) {
+          const href = link.getAttribute('href');
+          if (href && href !== "#") {
+            window.location.href = href;
+          }
+        }
       });
 
-      document.addEventListener("click", () => menu.classList.remove("show"));
     }
+    
   }
 
-  const loginBtn = document.querySelector('.login-btn');
-  if (loginBtn) {
-    loginBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const href = this.getAttribute('href');
-      if (href) {
-        window.location.href = href;
-      }
-    });
-  }
+  document.addEventListener("click", (e) => {
+    if (menu && !dropdownWrap.contains(e.target)) {
+      menu.classList.remove("show");
+      icon.classList.remove("borders");
+    }
+  });
 
   if (alert) {
     setTimeout(function () {
