@@ -23,29 +23,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 200);
       });
     } else {
-      // MOBILE: Touch Logic
-      // 1. Icon click panna menu toggle aaganum
       icon.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
         menu.classList.toggle("show");
-      });
+    });
 
-      // 2. IMPORTANT: Link redirection fix
-      // 'click' event block aagura nala 'touchstart' use panrom
-      menu.querySelectorAll("a").forEach(link => {
-        link.addEventListener("touchstart", function (e) {
-          // Touch panna udanae redirect pannanum
-          const url = this.getAttribute("href");
-          if (url && url !== "#") {
-            window.location.href = url;
-          }
-        }, { passive: true });
-      });
+    menu.addEventListener("click", function (e) {
+        const targetLink = e.target.closest('a');
+        if (targetLink) {
+            const url = targetLink.getAttribute("href");
+            if (url && url !== "#" && !url.startsWith("javascript")) {
+                menu.classList.remove("show"); 
+                window.location.href = url;
+            }
+        }
+    });
     }
   }
 
-  // Outside click panna close aaga
   document.addEventListener("click", (e) => {
     if (menu && !dropdownWrap.contains(e.target)) {
       menu.classList.remove("show");
