@@ -27,9 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       // Mobile Click Logic
       dropdownWrap.addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         e.stopPropagation();
         menu.classList.toggle("show");
+      });
+
+      menu.addEventListener("click", (e) => {
+        e.stopPropagation(); 
       });
 
       document.addEventListener("click", () => menu.classList.remove("show"));

@@ -48,8 +48,7 @@ html, body {
 }
 
 .profile-dropdown .dropdown-menu {
-    display: block;
-    visibility: hidden;
+    display: none !important;
     opacity: 0;
     transform: translateY(15px);
     transition: all 0.3s ease-in-out;
@@ -63,8 +62,9 @@ html, body {
 }
 
 .profile-dropdown .dropdown-menu.show {
-    visibility: visible;
-    opacity: 1;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     transform: translateX(-50%) translateY(0);
     pointer-events: auto !important;
     z-index: 2001 !important; 
