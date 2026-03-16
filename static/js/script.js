@@ -25,26 +25,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
       menu.addEventListener("mouseenter", () => clearTimeout(timeout));
     } else {
-      // --- MOBILE LOGIC (CLICK/TOUCH) ---
+
       icon.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
         menu.classList.toggle("show");
       });
 
-      // Allowed native click mechanism instead of intercepting
-      // Mobile Safari often blocks window.location.assign if e.preventDefault() is used inside a tap event.
-      menu.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent the document click listener from instantly hiding the menu
-        const link = e.target.closest('a');
-        if (link && link.href && !link.href.endsWith("#")) {
-          // DO NOT prevent default here so mobile browsers can natively navigate
-          window.location.href = link.href;
-        }
+      // allow normal browser navigation
+      menu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.stopPropagation(); // prevent document click from closing early
+          menu.classList.remove("show");
+          // do NOT manually redirect
+        });
       });
-
     }
-    
+
   }
 
   document.addEventListener("click", (e) => {
@@ -77,29 +74,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-    const menuTriggers = document.querySelectorAll('.has-mega-menu');
-    menuTriggers.forEach(trigger => {
-        const targetId = trigger.getAttribute('data-mega-target');
-        const targetMenu = document.getElementById(targetId);
+  const menuTriggers = document.querySelectorAll('.has-mega-menu');
+  menuTriggers.forEach(trigger => {
+    const targetId = trigger.getAttribute('data-mega-target');
+    const targetMenu = document.getElementById(targetId);
 
-        trigger.addEventListener('mouseenter', () => {
-            clearTimeout(timeout)
-            document.querySelectorAll('.mega-menu').forEach(m => m.style.display = 'none');
-            
-            if (targetMenu) {
-                targetMenu.style.display = 'block';
+    trigger.addEventListener('mouseenter', () => {
+      clearTimeout(timeout)
+      document.querySelectorAll('.mega-menu').forEach(m => m.style.display = 'none');
 
-            }
-        });
+      if (targetMenu) {
+        targetMenu.style.display = 'block';
 
-        trigger.addEventListener('mouseleave', () => {
-          timeout = setTimeout(()=>{
-            if (targetMenu) {
-                targetMenu.style.display = 'none';
-                body.style.backgroundColor = 'none';
-            }
-          },500)
-            
-        });
+      }
     });
+
+    trigger.addEventListener('mouseleave', () => {
+      timeout = setTimeout(() => {
+        if (targetMenu) {
+          targetMenu.style.display = 'none';
+          body.style.backgroundColor = 'none';
+        }
+      }, 500)
+
+    });
+  });
 });
