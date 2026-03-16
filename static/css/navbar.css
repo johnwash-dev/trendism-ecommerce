@@ -153,6 +153,8 @@ html, body {
     pointer-events: auto !important;
     display: block !important; 
     cursor: pointer !important;
+    min-height: 40px !important;
+    line-height: 40px !important;
 }
 
 @media (hover: hover) {
