@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     trigger.addEventListener('mouseleave', () => {
+      const body = document.body
       timeout = setTimeout(() => {
         if (targetMenu) {
           targetMenu.style.display = 'none';

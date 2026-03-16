@@ -1,214 +1,214 @@
-{% load static %}
-<nav
-  class="navbar navbar-expand-lg py-1 navbar-light bg-white shadow-sm sticky-top"
->
-  <div class="container d-flex flex-wrap align-items-center">
-    <button
-      class="navbar-toggler border-0 shadow-none order-1"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#mobileMenu"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  {% load static %}
+  <nav
+    class="navbar navbar-expand-lg py-1 navbar-light bg-white shadow-sm sticky-top"
+  >
+    <div class="container d-flex flex-wrap align-items-center">
+      <button
+        class="navbar-toggler border-0 shadow-none order-1"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#mobileMenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <a class="navbar-brand m-0 order-2 order-lg-1" href="{% url 'home' %}">
-      <img
-        src="{% static 'images/1-Photoroom.png' %}"
-        alt="logo"
-        class="logo"
-      />
-    </a>
-
-    <div
-      class="d-none d-sm-none d-lg-flex d-md-none justify-content-center order-lg-2"
-      id="navbarNav"
-    >
-      <ul class="navbar-nav">
-        {% for category in all_main_categories %}
-        <li
-          class="nav-item has-mega-menu"
-          data-mega-target="mega-{{ category.id }}"
-        >
-          <a class="nav-link px-3 pb-4 pt-4 fw-bold text-black" href="#">
-            {{ category.name|upper }}
-          </a>
-
-          <div class="mega-menu" id="mega-{{ category.id }}">
-            <div class="container p-4">
-              <div class="row row-cols-5 g-3">
-                {% for sub in category.children.all %}
-                <div class="col">
-                  <h6 class="mega-title">{{ sub.name }}</h6>
-                  <ul class="list-unstyled mega-links">
-                    {% for child in sub.children.all %}
-                    <li><a href="#">{{ child.name }}</a></li>
-                    {% endfor %}
-                  </ul>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <div
-      class="d-flex icons-container fs-5 text-dark order-3 order-lg-4 me-2"
-    >
-      {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'verify_otp' %}
-      <div class="dropdown profile-dropdown">
-        <a
-          href="javascript:void(0)"
-          class="text-dark px-2 py-4 profile-trigger no-caret"
-          id="profile-trigger"
-        >
-          <i class="fa-regular fa-user"></i>
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end shadow border-0 mt-0 py-3"
-          id="profileDropdown"
-        >
-          {% if user.is_authenticated %}
-          <li class="px-3 py-2 small fw-bold">Hello, {{ user.username }}</li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">Orders</a></li>
-          <li><a class="dropdown-item" href="#">Wishlist</a></li>
-          <li><a class="dropdown-item" href="#">Gift Card</a></li>
-          <li><a class="dropdown-item" href="#">Chat with us</a></li>
-          <li>
-            <a class="dropdown-item" href="{% url 'become_seller' %}"
-              >Become a seller</a
-            >
-          </li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li>
-            <form action="{% url 'logout' %}" method="post" class="d-inline">
-              {% csrf_token %}
-              <button type="submit" class="dropdown-item logout-btn-link">
-                Logout
-              </button>
-            </form>
-          </li>
-          {% else %}
-          <li class="px-3 pt-2 small fw-bold">Welcome</li>
-          <li class="px-3 small">to access account and Manage orders</li>
-          <li class="p-2">
-            <a class="btn login-btn w-100  " href="{% url 'login' %}"
-              >LOGIN / SIGNUP</a
-            >
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-      {% endif %}
-      <a href="#" class="text-dark px-2"><i class="fa-regular fa-heart"></i></a>
-      <a href="#" class="text-dark px-2 position-relative">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span
-          class="position-absolute translate-middle badge rounded-pill bg-danger bag-span"
-          >0</span
-        >
-      </a>
-    </div>
-
-    <div class="search-container order-4 order-lg-3 mt-1 py-0 mt-lg-0">
-      <form class="position-relative">
-        <input
-          class="form-control bg-light ps-5 shadow-none border-0 search-input"
-          type="search"
-          placeholder="Search for products..."
+      <a class="navbar-brand m-0 order-2 order-lg-1" href="{% url 'home' %}">
+        <img
+          src="{% static 'images/1-Photoroom.png' %}"
+          alt="logo"
+          class="logo"
         />
-        <i
-          class="fa fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-        ></i>
-      </form>
-    </div>
-    <div
-      class="offcanvas offcanvas-start d-lg-none"
-      tabindex="-1"
-      id="mobileMenu"
-    >
-      <div class="offcanvas-header shadow-sm">
-        <img src="{% static 'images/1-Photoroom.png' %}" class="logo" />
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-        ></button>
-      </div>
+      </a>
 
-      <div class="offcanvas-body">
-        <!-- mobile mega menu accordion (categories -> sub -> child) -->
-        <div class="accordion " id="mobileMegaAccordion">
+      <div
+        class="d-none d-sm-none d-lg-flex d-md-none justify-content-center order-lg-2"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav">
           {% for category in all_main_categories %}
-          <div class="accordion-item border-0">
-            <h2 class="accordion-header" id="heading{{ category.id }}">
-              <button
-                class="accordion-button collapsed shadow-none "
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapse{{ category.id }}"
-                aria-expanded="false"
-                aria-controls="collapse{{ category.id }}"
-              >
-                {{ category.name|upper }}
-              </button>
-            </h2>
-            <div
-              id="collapse{{ category.id }}"
-              class="accordion-collapse collapse"
-              aria-labelledby="heading{{ category.id }}"
-              data-bs-parent="#mobileMegaAccordion"
-            >
-              <div class="accordion-body border-0 p-0">
-                <!-- nested accordion for subcategories -->
-                <div class="accordion  " id="subAccordion{{ category.id }}">
+          <li
+            class="nav-item has-mega-menu"
+            data-mega-target="mega-{{ category.id }}"
+          >
+            <a class="nav-link px-3 pb-4 pt-4 fw-bold text-black" href="#">
+              {{ category.name|upper }}
+            </a>
+
+            <div class="mega-menu" id="mega-{{ category.id }}">
+              <div class="container p-4">
+                <div class="row row-cols-5 g-3">
                   {% for sub in category.children.all %}
-                  <div class="accordion-item border-0">
-                    <h3 class="accordion-header " id="subHeading{{ category.id }}-{{ sub.id }}">
-                      <button
-                        class="accordion-button collapsed ps-4 shadow-none  small text-muted"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#subCollapse{{ category.id }}-{{ sub.id }}"
-                        aria-expanded="false"
-                        aria-controls="subCollapse{{ category.id }}-{{ sub.id }}"
-                      >
-                        {{ sub.name }}
-                      </button>
-                    </h3>
-                    <div
-                      id="subCollapse{{ category.id }}-{{ sub.id }}"
-                      class="accordion-collapse collapse"
-                      aria-labelledby="subHeading{{ category.id }}-{{ sub.id }}"
-                      data-bs-parent="#subAccordion{{ category.id }}"
-                    >
-                      <div class="accordion-body p-0">
-                        <ul class="list-unstyled mb-0">
-                          {% for child in sub.children.all %}
-                          <li>
-                            <a
-                              href="{% url 'product_list_by_category' child.slug %}"
-                              class="d-block py-1 ps-5 text-black small text-muted"
-                              >{{ child.name }}</a
-                            >
-                          </li>
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    </div>
+                  <div class="col">
+                    <h6 class="mega-title">{{ sub.name }}</h6>
+                    <ul class="list-unstyled mega-links">
+                      {% for child in sub.children.all %}
+                      <li><a href="#">{{ child.name }}</a></li>
+                      {% endfor %}
+                    </ul>
                   </div>
                   {% endfor %}
                 </div>
               </div>
             </div>
-          </div>
+          </li>
           {% endfor %}
+        </ul>
+      </div>
+
+      <div
+        class="d-flex icons-container fs-5 text-dark order-3 order-lg-4 me-2"
+      >
+        {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'verify_otp' %}
+        <div class="dropdown profile-dropdown">
+          <a
+            href="javascript:void(0)"
+            class="text-dark px-2 py-4 profile-trigger no-caret"
+            id="profile-trigger"
+          >
+            <i class="fa-regular fa-user"></i>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end shadow border-0 mt-0 py-3"
+            id="profileDropdown"
+          >
+            {% if user.is_authenticated %}
+            <li class="px-3 py-2 small fw-bold">Hello, {{ user.username }}</li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Orders</a></li>
+            <li><a class="dropdown-item" href="#">Wishlist</a></li>
+            <li><a class="dropdown-item" href="#">Gift Card</a></li>
+            <li><a class="dropdown-item" href="#">Chat with us</a></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'become_seller' %}"
+                >Become a seller</a
+              >
+            </li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <form action="{% url 'logout' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item logout-btn-link">
+                  Logout
+                </button>
+              </form>
+            </li>
+            {% else %}
+            <li class="px-3 pt-2 small fw-bold">Welcome</li>
+            <li class="px-3 small">to access account and Manage orders</li>
+            <li class="p-2">
+              <a class="btn login-btn w-100  " href="{% url 'login' %}"
+                >LOGIN / SIGNUP</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+        <a href="#" class="text-dark px-2"><i class="fa-regular fa-heart"></i></a>
+        <a href="#" class="text-dark px-2 position-relative">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span
+            class="position-absolute translate-middle badge rounded-pill bg-danger bag-span"
+            >0</span
+          >
+        </a>
+      </div>
+
+      <div class="search-container order-4 order-lg-3 mt-1 py-0 mt-lg-0">
+        <form class="position-relative">
+          <input
+            class="form-control bg-light ps-5 shadow-none border-0 search-input"
+            type="search"
+            placeholder="Search for products..."
+          />
+          <i
+            class="fa fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+          ></i>
+        </form>
+      </div>
+      <div
+        class="offcanvas offcanvas-start d-lg-none"
+        tabindex="-1"
+        id="mobileMenu"
+      >
+        <div class="offcanvas-header shadow-sm">
+          <img src="{% static 'images/1-Photoroom.png' %}" class="logo" />
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+          ></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <!-- mobile mega menu accordion (categories -> sub -> child) -->
+          <div class="accordion " id="mobileMegaAccordion">
+            {% for category in all_main_categories %}
+            <div class="accordion-item border-0">
+              <h2 class="accordion-header" id="heading{{ category.id }}">
+                <button
+                  class="accordion-button collapsed shadow-none "
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse{{ category.id }}"
+                  aria-expanded="false"
+                  aria-controls="collapse{{ category.id }}"
+                >
+                  {{ category.name|upper }}
+                </button>
+              </h2>
+              <div
+                id="collapse{{ category.id }}"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading{{ category.id }}"
+                data-bs-parent="#mobileMegaAccordion"
+              >
+                <div class="accordion-body border-0 p-0">
+                  <!-- nested accordion for subcategories -->
+                  <div class="accordion  " id="subAccordion{{ category.id }}">
+                    {% for sub in category.children.all %}
+                    <div class="accordion-item border-0">
+                      <h3 class="accordion-header " id="subHeading{{ category.id }}-{{ sub.id }}">
+                        <button
+                          class="accordion-button collapsed ps-4 shadow-none  small text-muted"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#subCollapse{{ category.id }}-{{ sub.id }}"
+                          aria-expanded="false"
+                          aria-controls="subCollapse{{ category.id }}-{{ sub.id }}"
+                        >
+                          {{ sub.name }}
+                        </button>
+                      </h3>
+                      <div
+                        id="subCollapse{{ category.id }}-{{ sub.id }}"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="subHeading{{ category.id }}-{{ sub.id }}"
+                        data-bs-parent="#subAccordion{{ category.id }}"
+                      >
+                        <div class="accordion-body p-0">
+                          <ul class="list-unstyled mb-0">
+                            {% for child in sub.children.all %}
+                            <li>
+                              <a
+                                href="{% url 'product_list_by_category' child.slug %}"
+                                class="d-block py-1 ps-5 text-black small text-muted"
+                                >{{ child.name }}</a
+                              >
+                            </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
