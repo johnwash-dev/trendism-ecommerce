@@ -32,15 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.classList.toggle("show");
       });
 
-      // Simple Redirection for Mobile (Conflict-illaama)
+      // Allowed native click mechanism instead of intercepting
+      // Mobile Safari often blocks window.location.assign if e.preventDefault() is used inside a tap event.
       menu.addEventListener("click", (e) => {
         const link = e.target.closest('a');
-        if (link) {
-          e.preventDefault();
-          const href = link.href || link.getAttribute('href');
-          if (href && !href.endsWith("#")) {
-            window.location.assign(href);
-          }
+        if (link && link.href && !link.href.endsWith("#")) {
+          // DO NOT prevent default here so mobile browsers can natively navigate
+          window.location.href = link.href;
         }
       });
 
@@ -48,12 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
   }
 
-  // document.addEventListener("click", (e) => {
-  //   if (menu && !dropdownWrap.contains(e.target)) {
-  //     menu.classList.remove("show");
-  //     icon.classList.remove("borders");
-  //   }
-  // });
+  document.addEventListener("click", (e) => {
+    if (menu && !dropdownWrap.contains(e.target)) {
+      menu.classList.remove("show");
+      icon.classList.remove("borders");
+    }
+  });
 
   if (alert) {
     setTimeout(function () {
