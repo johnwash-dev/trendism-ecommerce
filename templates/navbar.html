@@ -87,7 +87,7 @@
             <li>
               <form action="{% url 'logout' %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" onclick="window.location.href='{% url 'logout' %}'; return true;"  class="dropdown-item logout-btn-link">
+                <button type="submit"  class="dropdown-item logout-btn-link">
                   Logout
                 </button>
               </form>

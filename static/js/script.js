@@ -29,13 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.classList.toggle("show");
     });
 
-    menu.addEventListener("mousedown", function (e) { 
+    menu.addEventListener("Click", function (e) { 
         const targetLink = e.target.closest('a');
         if (targetLink) {
-            const url = targetLink.getAttribute("href");
-            if (url && url !== "#") {
-                window.location.assign(url);
-            }
+          e.stopPropagation();
+          const url = targetLink.getAttribute("href");
+          if (url && url !== "#") {
+              window.location.assign(url);
+          }
         }
     });
     }
