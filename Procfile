@@ -1,1 +1,1 @@
-web: gunicorn ecommerce_project.wsgi
+web: python manage.py collectstatic --noinput && gunicorn ecommerce_project.wsgi
