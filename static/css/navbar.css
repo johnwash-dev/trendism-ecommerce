@@ -51,7 +51,7 @@ html, body {
 .custom-profile-dropdown {
     display: none;
     position: absolute;
-    top: 20%;
+    top: 40%;
     right: 10px; 
     left: 100%;
     transform: translateY(15px);
@@ -89,7 +89,7 @@ html, body {
     white-space: nowrap;
     background-color: transparent;
     border: 0;
-    font-size: 14px;
+    font-size: 12px;
     list-style: none;
 }
 
