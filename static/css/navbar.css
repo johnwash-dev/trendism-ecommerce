@@ -89,7 +89,7 @@ html, body {
     white-space: nowrap;
     background-color: transparent;
     border: 0;
-    font-size: 12px;
+    font-size: 10px !important;
     list-style: none;
 }
 
