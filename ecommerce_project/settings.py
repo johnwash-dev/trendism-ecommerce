@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'cloudinary_storage',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'cloudinary',
     'django.contrib.sites',
@@ -150,8 +151,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 if not DEBUG:
     # Use Whitenoise for Static Files
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    
-    # Cloudinary-ah MEDIA-ku mattum restrict pannunga
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
