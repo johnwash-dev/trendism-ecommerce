@@ -43,23 +43,30 @@ html, body {
     border-bottom: 2px solid #fe296d;
 }
 
+.profile-dropdown {
+    position: relative !important;
+}
+
 
 .custom-profile-dropdown {
-    display: none !important; /* Initially Hidden */
+    display: none;
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(15px);
+    /* Desktop-la right side-la irundhu align panna dhaan 'Myntra' look kidaikkum */
+    right: -10px; 
+    left: auto;
+    transform: translateY(15px);
     background-color: #fff;
-    min-width: 200px !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 250px; /* Konjam width increase pannalaam look-kaaga */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     z-index: 10005;
     list-style: none;
-    padding: 15px 0;
+    padding: 20px 0;
     margin: 0;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     pointer-events: none;
+    border-radius: 4px;
 }
 
 /* Show State */
