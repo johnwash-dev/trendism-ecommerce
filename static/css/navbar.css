@@ -184,6 +184,13 @@ html, body {
     cursor: pointer !important;
 }
 
+#profileDropdown .login-btn:hover{
+    border: 1px solid transparent;
+    color: #ffff !important;
+    background-color: #fe296d !important;
+    transition: all 0.2s ;
+}
+
 
 .search-input{
     background-color: #f3f2f2 !important;
