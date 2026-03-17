@@ -23,32 +23,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 200);
       });
     } else {
-      // MOBILE: Toggle menu (Handling both click and touch)
+      // MOBILE: Toggle logic with Flag to prevent double trigger
+      let isToggling = false;
       const handleToggle = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        if (isToggling) return;
+        isToggling = true;
         menu.classList.toggle("show");
+        setTimeout(() => {
+          isToggling = false;
+        }, 300); // 300ms cooldown
       };
 
-      icon.addEventListener("touchstart", handleToggle, { passive: false });
+      // Use only click for mobile/desktop-responsive compatibility
+      // Mobile browsers usually simulate click 300ms after touch
       icon.addEventListener("click", handleToggle);
 
-      // Menu content handling
-      const handleMenuClick = (e) => {
-        // Bootstrap bubble up-ah stop panrom
+      // Menu content handling - Professional Delegation
+      menu.addEventListener("click", function (e) {
+        // Step 1: Bootstrap global close-ah stop panrom
         e.stopPropagation();
 
         const target = e.target;
         const link = target.closest("a");
         const button = target.closest("button");
 
-        // CASE A: Links (Login, etc.)
+        // CASE A: Links (Login, Profile etc.)
         if (link) {
           const url = link.getAttribute("href");
           if (url && url !== "#" && !url.startsWith("javascript")) {
-            // 'touchstart' trigger aana fast-aa redirect aaganum
-            window.location.href = url;
-            console.log("V10 version loaded");
+            // Professional: Redirection-ah trigger pannittu menu-va force-aa hide panrom
+            window.location.assign(url);
+            menu.classList.remove("show");
             return;
           }
         }
@@ -58,13 +65,10 @@ document.addEventListener("DOMContentLoaded", function () {
           const form = button.closest("form");
           if (form) {
             form.submit();
+            menu.classList.remove("show");
           }
         }
-      };
-
-      // Fast response kaaga 'touchstart' and standard 'click' renduume add panrom
-      menu.addEventListener("touchstart", handleMenuClick, { passive: true });
-      menu.addEventListener("click", handleMenuClick);
+      });
     }
   }
 
