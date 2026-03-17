@@ -30,13 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     menu.addEventListener("Click", function (e) { 
-        const targetLink = e.target.closest('a');
-        if (targetLink) {
-          e.stopPropagation();
-          const url = targetLink.getAttribute("href");
-          if (url && url !== "#") {
-              window.location.assign(url);
-          }
+        e.stopPropagation()
+        const target = e.target;
+        const link = target.closest('a');
+        const button = target.closest('button');
+
+        // CASE A: LOGIN / OTHER LINKS
+        if (link) {
+            const url = link.getAttribute("href");
+            if (url && url !== "#" && !url.startsWith("javascript")) {
+                window.location.assign(url); 
+                
+                setTimeout(() => menu.classList.remove("show"), 100);
+            }
+        }
+        
+        // CASE B: LOGOUT FORM
+        if (button && button.type === "submit") {
+            const form = button.closest('form');
+            if (form) {
+                // Submit form immediately
+                form.submit();
+            }
         }
     });
     }
