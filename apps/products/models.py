@@ -53,7 +53,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True, blank=True)
     style_group = models.CharField(
-        max_length=100, 
+        max_length=200, 
         blank=True, 
         null=True, 
         help_text="give me the same group name to same design products for identify the color variation (e.g., 'slim-fit-cotton-shirt-01')"
