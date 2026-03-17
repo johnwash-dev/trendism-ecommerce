@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
-    'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles',
     'cloudinary',
+    # 'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
+    # 'cloudinary',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -151,9 +151,13 @@ STATICFILES_DIRS = [
     BASE_DIR / "static", 
 ]
 
-if not DEBUG:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 
