@@ -44,31 +44,59 @@ html, body {
 }
 
 
-.profile-dropdown {
-    position: relative !important;
-    z-index: 2000 !important;
-}
-
-.profile-dropdown .dropdown-menu {
-    display: none !important;
-    opacity: 0;
-    transform: translateY(15px);
-    transition: all 0.3s ease-in-out;
-    border-top: none;
-    min-width: 200px;
-    margin-top: 25px !important;
-    left: 50% !important;
-    right: auto !important;
+.custom-profile-dropdown {
+    display: none; /* Initially Hidden */
+    position: absolute;
+    top: 100%;
+    left: 50%;
     transform: translateX(-50%) translateY(15px);
+    background-color: #fff;
+    min-width: 220px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10005;
+    list-style: none;
+    padding: 15px 0;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
-.profile-dropdown .dropdown-menu.show {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+/* Show State */
+.custom-profile-dropdown.show {
+    display: block;
+    opacity: 1;
     transform: translateX(-50%) translateY(0);
-    pointer-events: auto !important;
-    z-index: 10001 !important; 
+    pointer-events: auto;
+}
+
+/* Custom Item Styling (Replacing dropdown-item) */
+.custom-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 8px 20px;
+    clear: both;
+    font-weight: 400;
+    color: #282c3f;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    font-size: 14px;
+}
+
+.custom-dropdown-item:hover {
+    background-color: #f5f5f6;
+    color: #fe296d;
+    font-weight: 600;
+}
+
+.dropdown-divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #e9ecef;
 }
 
 
@@ -116,22 +144,7 @@ html, body {
     padding: 4px 0;
 }
 
-@media (hover: hover) {
-    .mega-links li a:hover {
-        font-weight: 700;
-        color: #282c3f;
-    }
-}
 
-
-@media (hover: hover) {
-    .dropdown-item:hover {
-        background-color: #f5f5f6;
-        color: #fe296d !important;
-        font-weight: 600;
-        transition: 0.3s linear !important;
-    }
-}
 
 .icons-container i{
     font-size: 18px !important;
@@ -157,13 +170,6 @@ html, body {
     cursor: pointer !important;
 }
 
-@media (hover: hover) {
-    .login-btn:hover{
-        background-color: #fe296d !important;
-        color: white !important;
-        transition: 0.3s ;
-    }
-}
 
 .search-input{
     background-color: #f3f2f2 !important;
@@ -218,7 +224,7 @@ html, body {
     .offcanvas-start {
         width: 75% !important; 
     }
-    .profile-dropdown .dropdown-menu{
+    .custom-profile-dropdown .custom-dropdown-item{
         min-width: 150px;
         font-size: small !important;
         

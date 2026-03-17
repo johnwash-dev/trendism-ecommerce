@@ -68,26 +68,26 @@
             <i class="fa-regular fa-user"></i>
           </a>
           <ul
-            class="dropdown-menu dropdown-menu-end shadow border-0 mt-0 py-3"
+            class="custom-profile-dropdown shadow border-0 mt-0 py-3"
             id="profileDropdown"
           >
             {% if user.is_authenticated %}
             <li class="px-3 py-2 small fw-bold">Hello, {{ user.username }}</li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Orders</a></li>
-            <li><a class="dropdown-item" href="#">Wishlist</a></li>
-            <li><a class="dropdown-item" href="#">Gift Card</a></li>
-            <li><a class="dropdown-item" href="#">Chat with us</a></li>
+            <li><a class="custom-dropdown-item" href="#">Orders</a></li>
+            <li><a class="custom-dropdown-item" href="#">Wishlist</a></li>
+            <li><a class="custom-dropdown-item" href="#">Gift Card</a></li>
+            <li><a class="custom-dropdown-item" href="#">Chat with us</a></li>
             <li>
-              <a class="dropdown-item" href="{% url 'become_seller' %}"
+              <a class="custom-dropdown-item" href="{% url 'become_seller' %}"
                 >Become a seller</a
               >
             </li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="custom-dropdown-item" href="#">Profile</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit"  class="dropdown-item logout-btn-link">
+                <button type="submit"  class="custom-dropdown-item logout-btn-link">
                   Logout
                 </button>
               </form>
@@ -97,7 +97,7 @@
             <li class="px-3 small">to access account and Manage orders</li>
             <li class="p-2">
               <a class="btn login-btn w-100  " href="{% url 'login' %}"
-                target="_self" >LOGIN / SIGNUP</a
+                >LOGIN / SIGNUP</a
               >
             </li>
             {% endif %}

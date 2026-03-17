@@ -7,70 +7,53 @@ document.addEventListener("DOMContentLoaded", function () {
   const alert = document.getElementById("alert-msg");
 
   if (dropdownWrap && menu && icon) {
-    const isDesktop = window.matchMedia("(min-width: 992px)").matches;
+        const isDesktop = window.matchMedia("(min-width: 992px)").matches;
 
-    if (isDesktop) {
-      // DESKTOP: Hover logic
-      dropdownWrap.addEventListener("mouseenter", () => {
-        clearTimeout(timeout);
-        icon.classList.add("borders");
-        menu.classList.add("show");
-      });
-      dropdownWrap.addEventListener("mouseleave", () => {
-        timeout = setTimeout(() => {
-          icon.classList.remove("borders");
-          menu.classList.remove("show");
-        }, 200);
-      });
-    } else {
-      // MOBILE: Toggle logic with Flag to prevent double trigger
-      let isToggling = false;
-      const handleToggle = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (isToggling) return;
-        isToggling = true;
-        menu.classList.toggle("show");
-        setTimeout(() => {
-          isToggling = false;
-        }, 300); // 300ms cooldown
-      };
-
-      // Use only click for mobile/desktop-responsive compatibility
-      // Mobile browsers usually simulate click 300ms after touch
-      icon.addEventListener("click", handleToggle);
-
-      // Menu content handling - Professional Delegation
-      menu.addEventListener("click", function (e) {
-        // Step 1: Bootstrap global close-ah stop panrom
-        e.stopPropagation();
-
-        const target = e.target;
-        const link = target.closest("a");
-        const button = target.closest("button");
-
-        // CASE A: Links (Login, Profile etc.)
-        if (link) {
-          const url = link.getAttribute("href");
-          if (url && url !== "#" && !url.startsWith("javascript")) {
-            // Professional: Redirection-ah trigger pannittu menu-va force-aa hide panrom
-            window.location.assign(url);
-            menu.classList.remove("show");
-            return;
-          }
+        if (isDesktop) {
+            // DESKTOP: Myntra Style Hover
+            dropdownWrap.addEventListener("mouseenter", () => {
+                clearTimeout(timeout);
+                icon.classList.add("borders");
+                menu.classList.add("show");
+            });
+            dropdownWrap.addEventListener("mouseleave", () => {
+                timeout = setTimeout(() => {
+                    icon.classList.remove("borders");
+                    menu.classList.remove("show");
+                }, 200);
+            });
+        } else {
+            // MOBILE: Toggle on Click
+            icon.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                menu.classList.toggle("show");
+            });
         }
 
-        // CASE B: Logout Form
-        if (button && button.type === "submit") {
-          const form = button.closest("form");
-          if (form) {
-            form.submit();
-            menu.classList.remove("show");
-          }
-        }
-      });
+        // UNIVERSAL: Redirection handling (Works for both mobile & desktop)
+        menu.addEventListener("click", function (e) {
+            // Stop closing event from bubbling up to document
+            e.stopPropagation();
+
+            const target = e.target;
+            const link = target.closest("a");
+            const button = target.closest("button");
+
+            if (link) {
+                const url = link.getAttribute("href");
+                if (url && url !== "#" && !url.startsWith("javascript")) {
+                    // Direct navigation
+                    window.location.href = url;
+                }
+            }
+
+            if (button && button.type === "submit") {
+                const form = button.closest("form");
+                if (form) form.submit();
+            }
+        });
     }
-  }
 
   document.addEventListener("click", (e) => {
     if (menu && !dropdownWrap.contains(e.target)) {
