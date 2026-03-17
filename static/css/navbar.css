@@ -51,17 +51,16 @@ html, body {
 .custom-profile-dropdown {
     display: none;
     position: absolute;
-    top: 100%;
-    /* Desktop-la right side-la irundhu align panna dhaan 'Myntra' look kidaikkum */
+    top: 20%;
     right: 10px; 
     left: 100%;
     transform: translateY(15px);
     background-color: #fff;
-    min-width: 250px; /* Konjam width increase pannalaam look-kaaga */
+    min-width: 220px; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     z-index: 10005;
     list-style: none;
-    padding: 20px 0;
+    padding: 20px 10px;
     margin: 0;
     opacity: 0;
     transition: all 0.3s ease;
@@ -150,6 +149,13 @@ html, body {
     font-size: 13px;
     display: block;
     padding: 4px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.mega-links li a:hover{
+    color: #000 !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease-in-out;
 }
 
 
