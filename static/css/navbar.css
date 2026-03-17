@@ -51,7 +51,7 @@ html, body {
 .custom-profile-dropdown {
     display: none;
     position: absolute;
-    top: 40%;
+    top: 80%;
     right: 10px; 
     left: 100%;
     transform: translateY(15px);
@@ -80,7 +80,7 @@ html, body {
 .custom-dropdown-item {
     display: block;
     width: 100%;
-    padding: 8px 20px;
+    padding: 8px 20px ;
     clear: both;
     font-weight: 400;
     color: #282c3f;
@@ -97,6 +97,10 @@ html, body {
     background-color: #f5f5f6;
     color: #fe296d;
     font-weight: 600;
+}
+
+.custom-dropdown-text{
+    font-size: 12px !important;
 }
 
 .dropdown-divider {
@@ -149,13 +153,11 @@ html, body {
     font-size: 13px;
     display: block;
     padding: 4px 0;
-    transition: all 0.3s ease-in-out;
 }
 
 .mega-links li a:hover{
     color: #000 !important;
     font-weight: 600 !important;
-    transition: all 0.3s ease-in-out;
 }
 
 
