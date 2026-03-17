@@ -45,13 +45,13 @@ html, body {
 
 
 .custom-profile-dropdown {
-    display: none; /* Initially Hidden */
+    display: none !important; /* Initially Hidden */
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(15px);
     background-color: #fff;
-    min-width: 220px;
+    min-width: 200px !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     z-index: 10005;
     list-style: none;
@@ -64,7 +64,7 @@ html, body {
 
 /* Show State */
 .custom-profile-dropdown.show {
-    display: block;
+    display: block !important;
     opacity: 1;
     transform: translateX(-50%) translateY(0);
     pointer-events: auto;
@@ -84,6 +84,7 @@ html, body {
     background-color: transparent;
     border: 0;
     font-size: 14px;
+    list-style: none;
 }
 
 .custom-dropdown-item:hover {
