@@ -51,7 +51,7 @@ html, body {
 .custom-profile-dropdown {
     display: none;
     position: absolute;
-    top: 80%;
+    top: 100%;
     right: 10px; 
     left: 100%;
     transform: translateY(15px);
@@ -68,7 +68,7 @@ html, body {
     border-radius: 4px;
 }
 
-/* Show State */
+
 .custom-profile-dropdown.show {
     display: block !important;
     opacity: 1;
