@@ -2,7 +2,7 @@ import os
 from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
-from cloudinary_storage.storage import MediaCloudinaryStorage
+# from cloudinary_storage.storage import MediaCloudinaryStorage
 
 # Create your models here.
 def get_product_image_url(instance, filename):
@@ -18,7 +18,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    image = models.ImageField(upload_to='categories/icons/', null=True, blank=True, storage=MediaCloudinaryStorage())
+    image = models.ImageField(upload_to='categories/icons/', null=True, blank=True, )
     is_trending = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0, help_text="Home page trending categories order")
     nav_order = models.PositiveIntegerField(default=0, help_text="Navbar mega menu order")
@@ -66,7 +66,7 @@ class Product(models.Model):
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     discount_percentage = models.IntegerField(default=0, editable=False)
 
-    thumbnail = models.ImageField(upload_to=get_thumbnail_path, storage=MediaCloudinaryStorage())
+    thumbnail = models.ImageField(upload_to=get_thumbnail_path, )
 
     is_featured = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
@@ -108,11 +108,11 @@ class Variations(models.Model):
     
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='gallery')
-    image = models.ImageField(upload_to='products/gallery/', storage=MediaCloudinaryStorage())
+    image = models.ImageField(upload_to='products/gallery/', )
 
 class HomeBanners(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='banners/', storage=MediaCloudinaryStorage())
+    image = models.ImageField(upload_to='banners/', )
     link = models.CharField(max_length=500, help_text="Example: /category/men-shirts/")
     is_active = models.BooleanField(default=True, help_text="check this to show the banner on home page")
 
