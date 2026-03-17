@@ -53,8 +53,8 @@ html, body {
     position: absolute;
     top: 100%;
     /* Desktop-la right side-la irundhu align panna dhaan 'Myntra' look kidaikkum */
-    right: -10px; 
-    left: auto;
+    right: 10px; 
+    left: 100%;
     transform: translateY(15px);
     background-color: #fff;
     min-width: 250px; /* Konjam width increase pannalaam look-kaaga */
@@ -232,7 +232,7 @@ html, body {
     .offcanvas-start {
         width: 75% !important; 
     }
-    .custom-profile-dropdown .custom-dropdown-item{
+    .custom-profile-dropdown {
         min-width: 150px;
         font-size: small !important;
         
