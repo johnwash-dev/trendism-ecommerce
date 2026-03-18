@@ -161,7 +161,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-SITE_ID = 1
+SITE_ID = int(os.environ.get('SITE_ID', 1))
 
 AUTHENTICATION_BACKENDS = [
     'apps.accounts.auth_backends.EmailOTPBackend',
@@ -182,10 +182,11 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+        'METHOD': 'oauth2',
+        'VERIFIED_EMAIL': True
     }
 }
-
 
 
 ACCOUNT_LOGIN_METHODS = {'email'}
@@ -217,6 +218,10 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 CSRF_TRUSTED_ORIGINS = [
     'https://vivacious-possibility-production.up.railway.app',
