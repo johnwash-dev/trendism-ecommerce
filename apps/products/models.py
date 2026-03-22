@@ -23,6 +23,7 @@ class Category(models.Model):
     order = models.PositiveIntegerField(default=0, help_text="Home page trending categories order")
     nav_order = models.PositiveIntegerField(default=0, help_text="Navbar mega menu order")
     show_in_navbar = models.BooleanField(default=True, help_text="specific categories showing in navbar")
+    top_deals = models.BooleanField(default=False , help_text="It's is used to show budget deals in Home page")
 
     class Meta:
         ordering = ['nav_order','order']

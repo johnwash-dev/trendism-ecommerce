@@ -161,7 +161,12 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-SITE_ID = int(os.environ.get('SITE_ID', 1))
+if DEBUG:
+    SITE_ID = 1
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+else:
+    SITE_ID = 30002
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 AUTHENTICATION_BACKENDS = [
     'apps.accounts.auth_backends.EmailOTPBackend',
@@ -221,7 +226,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
 
 CSRF_TRUSTED_ORIGINS = [
     'https://vivacious-possibility-production.up.railway.app',

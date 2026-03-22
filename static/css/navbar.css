@@ -52,10 +52,10 @@ html, body {
     display: none;
     position: absolute;
     top: 100%;
-    right: 32px !important; 
+    right: 40px !important; 
     transform: translateY(15px);
     background-color: #fff;
-    max-width: 220px !important; 
+    width: 220px !important; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     z-index: 10005;
     list-style: none;
