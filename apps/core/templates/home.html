@@ -47,6 +47,14 @@
     </div>
 </div>
 
+{% if eid_banner %}
+<div class="container">
+    <a href="{{ eid_banner.link }}">
+        <img src="{{ eid_banner.image.url }}" class="img-fluid rounded-4" alt="eid_banner">
+    </a>
+</div>
+{% endif %}
+
 <div class="container product-container my-2">
     <h3 class="text-center  mb-5 font-title">FEATURED PRODUCTS</h3>
     <div class="row">
