@@ -186,6 +186,17 @@ body {
   color: #ffffff;
 }
 
+.eid-banner{
+  height: 200px !important;
+  width: 100% !important;
+}
+
+.eid-banner-img{
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
 @media (max-width: 768px) {
   .mySwiper {
     height: 200px !important;
@@ -203,6 +214,10 @@ body {
   .category-name {
     font-size: 10px;
     font-weight: 450;
+  }
+
+  .eid-banner{
+    height: 100px !important;
   }
 }
 
@@ -232,7 +247,7 @@ body {
   }
 
   .image-wrapper {
-    height: 200px !important;
+    height: 170px !important;
   }
 
   .card-body {

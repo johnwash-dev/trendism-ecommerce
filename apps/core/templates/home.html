@@ -48,10 +48,12 @@
 </div>
 
 {% if eid_banner %}
-<div class="container">
-    <a href="{{ eid_banner.link }}">
-        <img src="{{ eid_banner.image.url }}" class="img-fluid rounded-4" alt="eid_banner">
+<div class="container ">
+    <div class="eid-banner">
+    <a href="{{ eid_banner.link }}" class="">
+        <img src="{{ eid_banner.image.url }}" class="img-fluid rounded-4 eid-banner-img"  alt="Eid banner">
     </a>
+    </div>
 </div>
 {% endif %}
 
@@ -76,9 +78,9 @@
 
                 <div class="card-body d-flex flex-column  pt-0">
                     <h6 class=" fw-semibold  mb-1">{{ product.brand|upper }}</h6>
-                    <p class="card-title small text-muted mb-2">{{ product.name }}</p>
+                    <p class="card-title small text-muted mb-md-2 mb-1">{{ product.name }}</p>
                     
-                    <div class="price-wrapper mb-3">
+                    <div class="price-wrapper mb-md-2 mb-1">
                         {% if product.discount_price and product.discount_price > 0 %}
                         <span class="h5 font-weight-bold text-dark">₹{{ product.discount_price }}</span>
                         <span class="text-muted small ml-2"><del>₹{{ product.original_price }}</del></span>
