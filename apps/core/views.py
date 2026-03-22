@@ -14,6 +14,7 @@ def homePage(request):
 
     eid_banner = HomeBanners.objects.filter(title__icontains='Eid', is_active=False).first()
 
+    featured_product = Product.objects.filter(is_featured=True)[:8]
     context ={
         'banners' : banners,
         'featured_product' : featured_product,
@@ -22,5 +23,4 @@ def homePage(request):
         'eid_banner' : eid_banner,
     }
 
-    featured_product = Product.objects.filter(is_featured=True)[:8]
     return render(request, 'home.html', context)
