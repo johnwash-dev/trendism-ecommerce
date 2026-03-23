@@ -48,7 +48,7 @@
 </div>
 
 {% if eid_banner %}
-<div class="container ">
+<div class="container my-3">
     <div class="eid-banner">
     <a href="{{ eid_banner.link }}" class="">
         <img src="{{ eid_banner.image.url }}" class="img-fluid rounded-4 eid-banner-img"  alt="Eid banner">
@@ -57,8 +57,30 @@
 </div>
 {% endif %}
 
-<div class="container product-container my-2">
-    <h3 class="text-center  mb-5 font-title">FEATURED PRODUCTS</h3>
+<div class="budget-deals-section container  my-2">
+    <h3 class="text-center mb-4 font-title">TOP BUDGET DEALS</h3>
+    
+    <div class="swiper budgetSwiper bg-color p-3">
+        <div class="swiper-wrapper">
+            {% for deal in top_deals %}
+            <div class="swiper-slide">
+              <a href="/products/?category={{ deal.slug }}" class="text-decoration-none">
+                <div class="budget-card rounded-4 shadow-sm">
+                  <img src="{{ deal.image.url }}" class="budget-img" alt="{{ deal.name }}">
+            
+                  <div class="budget-text-container">
+                    <p class="budget-title-text">{{ deal.name|upper }}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container product-container p-3 mt-1 mb-2">
+    <h3 class="text-center  mb-4 font-title">FEATURED PRODUCTS</h3>
     <div class="row">
         {% for product in featured_product %}
         <div class="col-6 col-md-4 col-lg-3 mb-4">

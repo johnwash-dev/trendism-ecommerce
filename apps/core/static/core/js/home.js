@@ -48,6 +48,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    var budgetSwiper = new Swiper(".budgetSwiper", {
+       slidesPerView: 2.3, 
+       spaceBetween: 15,
+       freeMode: true, 
+       mousewheel: {
+            forceToAxis: true, 
+        },
+       breakpoints: {
+          640: { slidesPerView: 3.5 },
+          1024: { slidesPerView: 5.5 },
+       },
+    });
+
     document.querySelectorAll('.wishlist-icon').forEach(icon => {
         icon.addEventListener('click', function(e) {
             e.preventDefault();
