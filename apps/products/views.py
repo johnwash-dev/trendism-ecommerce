@@ -33,7 +33,13 @@ def product_list(request):
         products = products.filter(discount_percentage__gte=int(min_discount))
 
     if q_search:
-        products = products.filter(Q(name__icontains=q_search) | Q(brand__icontains=q_search) | Q(color__icontains=q_search) | Q(category__name__icontains=q_search)).distinct()
+        search_query = Q(name__icontains=q_search) | \
+                       Q(brand__icontains=q_search) | \
+                       Q(color__icontains=q_search)
+
+        search_query |= Q(category__name__icontains=q_search)
+
+        products = products.filter(search_query)
    
     return render(request, 'products/productList.html', {'products':products})
 
