@@ -9,7 +9,7 @@ def product_list(request):
     products = Product.objects.all()
 
     cat_parameter = request.GET.get('category')
-    gender = request.GET.get('gender')
+    gender_parameter = request.GET.get('gender')
     min_discount = request.GET.get('min_discount')
     q_search = request.GET.get('q')
 
@@ -22,14 +22,18 @@ def product_list(request):
             if match:
                 price_limit = int(match.group(1))
                 products = products.filter(original_price__lte=price_limit)
-    if gender:
-        products = products.filter(gender__iexact=gender)
+    if gender_parameter:
+        products = products.filter(
+            Q(category__name__iexact=gender_parameter) | 
+            Q(category__parent__name__iexact=gender_parameter) |
+            Q(category__parent__parent__name__iexact=gender_parameter)
+        ).distinct()
     
     if min_discount:
         products = products.filter(discount_percentage__gte=int(min_discount))
 
     if q_search:
-        products = products.filter(Q(name__icontains=q_search) | Q(brand__icontains=q_search) | Q(color__icontains=q_search))
+        products = products.filter(Q(name__icontains=q_search) | Q(brand__icontains=q_search) | Q(color__icontains=q_search) | Q(category__name__icontains=q_search)).distinct()
    
     return render(request, 'products/productList.html', {'products':products})
 
