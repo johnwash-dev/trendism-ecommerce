@@ -1,14 +1,35 @@
+import re
 from django.shortcuts import render, get_object_or_404 
 from .models import Product, Category
+from django.db.models import Q
+
 
 
 def product_list(request):
     products = Product.objects.all()
 
-    cat_slug = request.GET.get('category')
+    cat_parameter = request.GET.get('category')
+    gender = request.GET.get('gender')
+    min_discount = request.GET.get('min_discount')
+    q_search = request.GET.get('q')
 
-    if cat_slug:
-        products = products.filter(category__slug=cat_slug)
+    if cat_parameter:
+        cat_slugs = cat_parameter.split(',')
+        products = products.filter(category__slug__in=cat_slugs)
+
+        for slug in cat_slugs:
+            match = re.search(r'under-(\d+)', slug)
+            if match:
+                price_limit = int(match.group(1))
+                products = products.filter(original_price__lte=price_limit)
+    if gender:
+        products = products.filter(gender__iexact=gender)
+    
+    if min_discount:
+        products = products.filter(discount_percentage__gte=int(min_discount))
+
+    if q_search:
+        products = products.filter(Q(name__icontains=q_search) | Q(brand__icontains=q_search) | Q(color__icontains=q_search))
    
     return render(request, 'products/productList.html', {'products':products})
 

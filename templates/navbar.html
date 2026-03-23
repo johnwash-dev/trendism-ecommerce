@@ -42,7 +42,7 @@
                     <h6 class="mega-title">{{ sub.name }}</h6>
                     <ul class="list-unstyled mega-links">
                       {% for child in sub.children.all %}
-                      <li><a href="#">{{ child.name }}</a></li>
+                      <li><a href="{% url 'product_list' %}?category={{ child.slug }}&gender={{ category.name|lower }}">{{ child.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -115,11 +115,13 @@
       </div>
 
       <div class="search-container order-4 order-lg-3 mt-1 py-0 mt-lg-0">
-        <form class="position-relative">
+        <form class="position-relative" action="{% url "product_list" %}" method="GET">
           <input
+            name="q"
             class="form-control bg-light ps-5 shadow-none border-0 search-input"
             type="search"
             placeholder="Search for products..."
+            value="{{ request.GET.q|default:'' }}"
           />
           <i
             class="fa fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
@@ -191,7 +193,7 @@
                             {% for child in sub.children.all %}
                             <li>
                               <a
-                                href="{% url 'product_list_by_category' child.slug %}"
+                                href="{% url 'product_list' %}?category={{ child.slug }}&gender={{ category.name|lower }}"
                                 class="d-block py-1 ps-5 text-black small text-muted"
                                 >{{ child.name }}</a
                               >
