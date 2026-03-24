@@ -29,7 +29,7 @@
         <div class="swiper-wrapper">
             {% for trend_cat in trending_categories %}
             <div class="swiper-slide">
-                <a href="/category/{{ trend_cat.slug }}/" class="text-decoration-none text-dark d-block">
+                <a href="{% url "product_list" %}?category={{ trend_cat.slug }}&gender={{ category.name|lower }}" class="text-decoration-none text-dark d-block">
                     <div class="cat-img-container shadow-sm border">
                         {% if trend_cat.image %}
                             <img src="{{ trend_cat.image.url }}" alt="{{ trend_cat.name }}">

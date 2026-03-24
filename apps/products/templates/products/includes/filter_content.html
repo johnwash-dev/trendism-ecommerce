@@ -1,0 +1,82 @@
+{% if show_categories %}
+<div class="filter-group mb-4">
+    <p class="filter-label">Categories</p>
+    {% for sub in sub_categories %}
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="checkbox" name="category" value="{{ sub.slug }}" id="c-{{ sub.id }}">
+        <label class="form-check-label small" for="c-{{ sub.id }}">{{ sub.name }}</label>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="filter-group mb-4 border-top pt-3">
+    <p class="filter-label">Brand</p>
+    <div id="brandList">
+        {% for brand in brands_preview %}
+        <div class="form-check mb-1">
+            <input class="form-check-input" type="checkbox" name="brand" value="{{ brand }}">
+            <label class="form-check-label small">{{ brand }}</label>
+        </div>
+        {% endfor %}
+        
+        {% if brands_more %}
+        <div class="collapse" id="brandCollapse">
+            {% for brand in brands_more %}
+            <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" name="brand" value="{{ brand }}">
+                <label class="form-check-label small">{{ brand }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="text-danger small fw-bold text-decoration-none" data-bs-toggle="collapse" href="#brandCollapse">+ {{ brands_more|length }} more</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="filter-group mb-4 border-top pt-3">
+    <p class="filter-label">color</p>
+    {% for color in colors_preview %}
+<div class="form-check mb-1">
+    <input class="form-check-input" type="checkbox" name="color" value="{{ color.color_name }}">
+    <label class="form-check-label small">
+        <span class="color-dot "
+         style="background-color: {{ color.code }}; ">
+        </span> {{ color.color_name }}
+    </label>
+</div>
+{% endfor %}
+</div>
+
+<div class="filter-group mb-4 border-top pt-3">
+    <p class="filter-label">Price</p>
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="radio" name="price" value="0-499" id="p1">
+        <label class="form-check-label small" for="p1">Rs. 499 and below</label>
+    </div>
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="radio" name="price" value="500-999" id="p2">
+        <label class="form-check-label small" for="p2">Rs. 500 to Rs. 999</label>
+    </div>
+</div>
+
+<div class="filter-group mb-4 border-top pt-3">
+    <p class="filter-label">Discount Range</p>
+    
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="radio" name="discount" value="10" id="d10" {% if request.GET.discount == "10" %}checked{% endif %}>
+        <label class="form-check-label small" for="d10">10% and above</label>
+    </div>
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="radio" name="discount" value="20" id="d20" {% if request.GET.discount == "20" %}checked{% endif %}>
+        <label class="form-check-label small" for="d20">20% and above</label>
+    </div>
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="radio" name="discount" value="30" id="d30" {% if request.GET.discount == "30" %}checked{% endif %}>
+        <label class="form-check-label small" for="d30">30% and above</label>
+    </div>
+    <div class="form-check mb-1">
+        <input class="form-check-input" type="radio" name="discount" value="50" id="d50" {% if request.GET.discount == "50" %}checked{% endif %}>
+        <label class="form-check-label small" for="d50">50% and above</label>
+    </div>
+</div>

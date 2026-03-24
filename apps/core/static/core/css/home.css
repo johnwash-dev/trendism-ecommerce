@@ -255,7 +255,7 @@ body {
 }
 
 .budget-card:hover .budget-overlay {
-    height: 50%; /* Hover pannum podhu overlay konjam mela varum */
+    height: 50%; 
 }
 
 @media (max-width: 768px) {

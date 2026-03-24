@@ -30,7 +30,7 @@
             class="nav-item has-mega-menu"
             data-mega-target="mega-{{ category.id }}"
           >
-            <a class="nav-link px-3 pb-4 pt-4 fw-bold text-black" href="#">
+            <a class="nav-link px-3 pb-4 pt-4 fw-bold text-black" href="{% url "product_list" %}?gender={{ category.name|lower }}">
               {{ category.name|upper }}
             </a>
 

@@ -1,74 +1,76 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/product_list.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="container my-5">
-    
-    <div class="row mb-4">
-        <div class="col-12 text-center">
-            {% if request.GET.q %}
-                <h2 class="fw-bold">Results for "{{ request.GET.q }}"</h2>
-                <p class="text-muted">{{ products.count }} items found</p>
-            {% elif request.GET.category %}
-                <h2 class="fw-bold text-uppercase">{{ request.GET.category|replace_dash }}</h2>
-            {% elif request.GET.gender %}
-                <h2 class="fw-bold text-uppercase">{{ request.GET.gender }}'s Collection</h2>
-            {% else %}
-                <h2 class="fw-bold">All Products</h2>
-            {% endif %}
-            <hr class="mx-auto" style="width: 50px; height: 3px; background: #000;">
+<div class="d-lg-none mobile-filter-bar sticky-top shadow-sm bg-white">
+    <div class="row g-0 py-2 text-center border-bottom">
+        <div class="col-6 border-end" data-bs-toggle="offcanvas" data-bs-target="#filterCanvas">
+            <span class="fw-bold"><i class="fa fa-filter me-1"></i> FILTER</span>
         </div>
-    </div>
-
-    <div class="row">
-        {% if products %}
-            {% for product in products %}
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <a href="#" class="text-decoration-none text-dark">
-                    <div class="card border-0 h-100 product-card">
-                        <div class="position-relative overflow-hidden rounded-4" style="height: 280px;">
-                            <img src="{{ product.thumbnail.url }}" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="{{ product.name }}">
-                            
-                            {% if product.discount_percentage > 0 %}
-                                <span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 m-2 rounded-2 small fw-bold">
-                                    {{ product.discount_percentage }}% OFF
-                                </span>
-                            {% endif %}
-                        </div>
-
-                        <div class="card-body px-1 py-3 text-center">
-                            <p class="text-muted mb-1 small fw-bold text-uppercase">{{ product.brand }}</p>
-                            <h6 class="card-title text-truncate mb-2">{{ product.name }}</h6>
-                            <div class="d-flex justify-content-center align-items-center gap-2">
-                                <span class="fw-bold">₹{{ product.discount_price }}</span>
-                                <span class="text-muted text-decoration-line-through small">₹{{ product.original_price }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        {% else %}
-            <div class="col-12 text-center py-5">
-                <img src="{% static 'images/no-products.png' %}" alt="No products" style="max-width: 250px;" class="mb-4 opacity-50">
-                <h3 class="fw-bold">Oops! No products found.</h3>
-                <p class="text-muted">Try adjusting your filters or search keywords.</p>
-                <a href="{% url 'product_list' %}" class="btn btn-dark px-4 py-2 mt-3 rounded-pill">Clear All Filters</a>
-            </div>
-        {% endif %}
+        <div class="col-6" data-bs-toggle="offcanvas" data-bs-target="#sortCanvas">
+            <span class="fw-bold"><i class="fa fa-sort me-1"></i> SORT</span>
+        </div>
     </div>
 </div>
 
-<style>
-    .product-card {
-        transition: transform 0.3s ease;
-    }
-    .product-card:hover {
-        transform: translateY(-5px);
-    }
-    .card-title {
-        font-size: 0.95rem;
-        font-weight: 500;
-    }
-</style>
+<div class="container-fluid px-lg-5 mt-4">
+    <div class="row">
+        <aside class="col-lg-2 d-none d-lg-block border-end pe-4">
+            <div class="sidebar-sticky ">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-4 text-uppercase">Filters</h6>
+                    <a href="?category={{ request.GET.category }}&gender={{ request.GET.gender }}" 
+                       class=" small mb-4 text-decoration-none fw-bold">
+                       CLEAR ALL
+                    </a>
+                </div>
+                
+                {% include 'products/includes/filter_content.html' %}
+            </div>
+        </aside>
+
+        <main class="col-lg-10 ps-lg-4">
+            <div class="d-none d-lg-flex justify-content-between align-items-center mb-4">
+                {% if products %}
+                <p class="text-muted mb-0">{{ products.count }} Items Found</p>
+                {% endif %}
+                <div class="dropdown">
+                    <button class="btn btn-sm border dropdown-toggle fw-bold" data-bs-toggle="dropdown">
+                        SORT BY: {% if sort_by == 'price_low' %}Price Low to High{% else %}Recommended{% endif %}
+                    </button>
+                    <ul class="dropdown-menu shadow border-0">
+                        <li><a class="dropdown-item" href="?{{ request.GET.urlencode }}&sort=newest">Newest</a></li>
+                        <li><a class="dropdown-item" href="?{{ request.GET.urlencode }}&sort=price_low">Price: Low to High</a></li>
+                        <li><a class="dropdown-item" href="?{{ request.GET.urlencode }}&sort=price_high">Price: High to Low</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            
+              <div id="ajax-product-section">
+                {% include 'products/includes/product_grid.html' %}
+              </div>
+        
+            
+        </main>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start w-85" id="filterCanvas" tabindex="-1">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold">Filters</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        {% include 'products/includes/filter_content.html' %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'products/js/filter_logic.js' %}"></script>
 {% endblock %}
