@@ -300,6 +300,11 @@ body {
   .font-title {
     font-size: 18px !important;
   }
+
+  .budget-card{
+    height: 200px !important;
+    width: 100%;
+  }
 }
 
 @media (max-width: 502px) {

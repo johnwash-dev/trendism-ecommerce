@@ -1,14 +1,15 @@
 {% load static %}
 <div class="row g-4">
+    <input type="hidden" id="current-count-hidden" value="{{ products.count }}">
     {% for product in products %}
     <div class="col-6 col-md-4 col-lg-3">
         <div class="product-card">
             <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none">
                 <div class="image-wrapper">
                     {% if product.thumbnail %}
-                        <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}">
+                    <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}">
                     {% else %}
-                        <img src="{% static 'images/placeholder.png' %}" alt="Placeholder">
+                    <img src="{% static 'images/placeholder.png' %}" alt="Placeholder">
                     {% endif %}
                 </div>
                 <div class="product-info p-2">
@@ -16,11 +17,11 @@
                     <h4 class="product-name text-truncate">{{ product.name }}</h4>
                     <div class="price-container">
                         {% if product.discount_price and product.discount_price > 0 %}
-                            <span>Rs. {{ product.effective_price|floatformat:0 }}</span>
-                            <span class="original-price">Rs. {{ product.original_price|floatformat:0 }}</span>
-                            <span class="discount-text">({{ product.discount_percentage }}% OFF)</span>
+                        <span>Rs. {{ product.effective_price|floatformat:0 }}</span>
+                        <span class="original-price">Rs. {{ product.original_price|floatformat:0 }}</span>
+                        <span class="discount-text">({{ product.discount_percentage }}% OFF)</span>
                         {% else %}
-                            <span>₹ {{ product.original_price }}</span>
+                        <span>₹ {{ product.original_price }}</span>
                         {% endif %}
 
                     </div>
@@ -29,13 +30,14 @@
         </div>
     </div>
     {% empty %}
-        <div class="col-12 text-center py-5">
-           <div class="no-results py-5">
-              <img src="{% static 'images/no-products.png' %}" style="width: 150px; opacity: 0.5;">
-              <h4 class="mt-4 fw-bold">No matches found !</h4>
-              <p class="text-muted">Try adjusting your filters to find what you're looking for.</p>
-              <button onclick="window.location.href=window.location.pathname" class="btn btn-danger btn-sm px-4">CLEAR ALL FILTERS</button>
-           </div>
-        </div> 
+    <div class="col-12 text-center py-5">
+        <div class="no-results py-5">
+            <img src="{% static 'images/no-products.png' %}" style="width: 150px; opacity: 0.5;">
+            <h4 class="mt-4 fw-bold">No matches found !</h4>
+            <p class="text-muted">Try adjusting your filters to find what you're looking for.</p>
+            <button onclick="window.location.href=window.location.pathname" class="btn btn-danger btn-sm px-4">CLEAR ALL
+                FILTERS</button>
+        </div>
+    </div>
     {% endfor %}
 </div>

@@ -16,6 +16,10 @@ body{
     
 }
 
+.text-orange{
+    color: #ff905a !important;
+}
+
 .text-pink { 
     color: #fe296d !important; 
 }
@@ -35,8 +39,6 @@ body{
 .breadcrumb-item{
     font-size: 10px !important;
 }
-
-
 
 .size-circle {
     width: 50px;
@@ -255,7 +257,7 @@ body{
 .similar-product-name{
     font-size: 12px !important;
 }
-/* Color Swatches */
+
 
 .swatch-wrapper {
     width: 52px;
@@ -274,7 +276,7 @@ body{
 }
 
 .swatch-wrapper.active {
-    border: 2px solid #ff3f6c !important; /* Myntra Pink */
+    border: 2px solid #ff3f6c !important; 
 }
 
 .swatch-img {
@@ -283,7 +285,7 @@ body{
     object-fit: cover;
 }
 
-/* Main Image Animation */
+
 #mainImg {
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -291,6 +293,13 @@ body{
 .img-fade-out {
     opacity: 0.5;
     transform: scale(0.98);
+}
+
+.similar-swiper {
+    width: 100%;
+}
+.similar-swiper .swiper-slide {
+    width: auto;
 }
 
 
@@ -338,14 +347,6 @@ body{
         display: none !important; 
     }
 }
-
-.similar-swiper {
-    width: 100%;
-}
-.similar-swiper .swiper-slide {
-    width: auto;
-}
-
 
 @media (max-width: 575px) {
     .btn-group {

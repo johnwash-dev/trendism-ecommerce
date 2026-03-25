@@ -149,7 +149,7 @@
                                 {% if related.original_price and related.discount_price > 0 %}
                                 <span class="fw-bold similar-product-price ">₹{{ related.discount_price }}</span>
                                 <span class=" text-muted small similar-product-org-price"><del>₹{{ related.original_price }}</del></span>
-                                <span class="small fw-semibold text-success similar-percent">({{ related.discount_percentage }}% off)</span>
+                                <span class="small fw-semibold text-orange similar-percent">({{ related.discount_percentage }}% off)</span>
                                 {% else %}
                                 <span class="fw-bold small">₹{{ related.original_price }}</span>
                                 {% endif %}

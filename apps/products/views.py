@@ -16,13 +16,13 @@ def product_list(request):
     brand_parameter = request.GET.get('brand')
     color_parameter = request.GET.get('color')
     price_range = request.GET.get('price')
-    sort_by = request.GET.get('sort')
+    sort_by = request.GET.get('sort','newest')
     min_discount = request.GET.get('min_discount')
     q_search = request.GET.get('q')
 
     show_categories = True
     if cat_parameter:
-        # Gen Z logic (Keep as is)
+        # Gen Z logic 
         if gender_parameter and gender_parameter.lower() == 'gen z':
             show_categories = True
         else:
