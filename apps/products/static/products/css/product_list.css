@@ -112,17 +112,14 @@
 .sidebar-sticky { 
     position: sticky; 
     top: 90px; 
-    z-index: 900 !important;
+    z-index: 1000 !important;
 }
 
-.mobile-filter-bar,
-.sticky-top {
-    z-index: 700 !important;
-}
-
-.offcanvas,
-.dropdown-menu {
-    z-index: 1055 !important; 
+.mobile-filter-bar {
+    position: sticky;
+    top: 60px; 
+    z-index: 1010 !important; 
+    background: white;
 }
 
 .w-85 { 

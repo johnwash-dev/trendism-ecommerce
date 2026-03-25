@@ -7,6 +7,10 @@ html, body {
     font-family: "Poppins", sans-serif !important;
 }
 
+.navbar.sticky-top {
+    z-index: 1030 !important; 
+}
+
 .logo {
     width: 90px;
     height: 60px;
@@ -34,6 +38,10 @@ html, body {
     color: #fe296d !important;
 }
 
+.offcanvas {
+    z-index: 1070 !important; 
+}
+
 
 .icons-container {
     align-items: center !important;
@@ -53,7 +61,7 @@ html, body {
     background-color: #fff;
     width: 220px !important; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    z-index: 10005;
+    z-index: 1060 !important;
     list-style: none;
     padding: 20px 10px;
     margin: 0;
