@@ -82,8 +82,8 @@ body{
 .discount-text {
     color: #ff905a; 
     font-weight: 400;
-    margin-left: 5px;
-    font-size: 10px;
+    margin-left: 3px;
+    font-size: 12px;
 }
 
 .text-head{
@@ -147,4 +147,12 @@ body{
 .loading-active #grid-content {
     opacity: 0.3;
     pointer-events: none; 
+}
+
+@media (max-width: 450px){
+    .discount-text{
+        font-size: 9px !important;
+        margin-left: 2px !important;
+
+    }
 }

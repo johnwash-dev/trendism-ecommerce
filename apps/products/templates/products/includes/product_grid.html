@@ -17,8 +17,8 @@
                     <h4 class="product-name text-truncate">{{ product.name }}</h4>
                     <div class="price-container">
                         {% if product.discount_price and product.discount_price > 0 %}
-                        <span>Rs. {{ product.effective_price|floatformat:0 }}</span>
-                        <span class="original-price">Rs. {{ product.original_price|floatformat:0 }}</span>
+                        <span>₹ {{ product.effective_price|floatformat:0 }}</span>
+                        <span class="original-price">₹ {{ product.original_price|floatformat:0 }}</span>
                         <span class="discount-text">({{ product.discount_percentage }}% OFF)</span>
                         {% else %}
                         <span>₹ {{ product.original_price }}</span>
