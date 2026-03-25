@@ -115,14 +115,16 @@
     z-index: 900 !important;
 }
 
-.sticky-top{
-    z-index: 900 !important;
+.mobile-filter-bar,
+.sticky-top {
+    z-index: 700 !important;
+}
+
+.offcanvas,
+.dropdown-menu {
+    z-index: 1055 !important; 
 }
 
 .w-85 { 
     width: 85% !important; 
-}
-
-.offcanvas, .dropdown-menu {
-    z-index: 1055 !important; 
 }
