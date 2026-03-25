@@ -43,10 +43,6 @@ html, body {
     border-bottom: 2px solid #fe296d;
 }
 
-/* .profile-dropdown {
-    position: relative !important;
-} */
-
 
 .custom-profile-dropdown {
     display: none;
@@ -75,7 +71,6 @@ html, body {
     pointer-events: auto;
 }
 
-/* Custom Item Styling (Replacing dropdown-item) */
 .custom-dropdown-item {
     display: block;
     width: 100%;

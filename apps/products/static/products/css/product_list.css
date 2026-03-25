@@ -112,8 +112,13 @@
 .sidebar-sticky { 
     position: sticky; 
     top: 90px; 
+    z-index: 900 !important;
 }
 
 .w-85 { 
     width: 85% !important; 
+}
+
+.offcanvas, .dropdown-menu {
+    z-index: 1055 !important; 
 }
