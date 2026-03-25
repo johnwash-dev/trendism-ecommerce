@@ -2,9 +2,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const dropdownWrap = document.querySelector(".profile-dropdown");
   const menu = document.getElementById("profileDropdown");
   const icon = document.querySelector(".profile-trigger");
+  const mobileFilterBar = document.querySelector(".mobile-filter-bar");
   let timeout;
 
   const alert = document.getElementById("alert-msg");
+
+  const setMobileFilterBarVisibility = (visible) => {
+    if (!mobileFilterBar) return;
+    mobileFilterBar.style.display = visible ? "" : "none";
+  };
+
+  const isAnyMenuOpen = () => {
+    const offcanvasOpen = document.querySelectorAll(".offcanvas.show").length > 0;
+    const profileOpen = menu ? menu.classList.contains("show") : false;
+    return offcanvasOpen || profileOpen;
+  };
 
   if (dropdownWrap && menu && icon) {
         const isDesktop = window.matchMedia("(min-width: 992px)").matches;
@@ -15,11 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 clearTimeout(timeout);
                 icon.classList.add("borders");
                 menu.classList.add("show");
+                setMobileFilterBarVisibility(false);
             });
             dropdownWrap.addEventListener("mouseleave", () => {
                 timeout = setTimeout(() => {
                     icon.classList.remove("borders");
                     menu.classList.remove("show");
+                    if (!isAnyMenuOpen()) {
+                      setMobileFilterBarVisibility(true);
+                    }
                 }, 200);
             });
         } else {
@@ -28,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 e.preventDefault();
                 e.stopPropagation();
                 menu.classList.toggle("show");
+                setMobileFilterBarVisibility(!menu.classList.contains("show"));
             });
         }
 
@@ -59,7 +76,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (menu && !dropdownWrap.contains(e.target)) {
       menu.classList.remove("show");
       icon.classList.remove("borders");
+      if (!isAnyMenuOpen()) setMobileFilterBarVisibility(true);
     }
+  });
+
+  document.querySelectorAll('.offcanvas').forEach((offcanvas) => {
+    offcanvas.addEventListener('show.bs.offcanvas', () => {
+      setMobileFilterBarVisibility(false);
+    });
+    offcanvas.addEventListener('hidden.bs.offcanvas', () => {
+      if (!isAnyMenuOpen()) setMobileFilterBarVisibility(true);
+    });
   });
 
   if (alert) {
