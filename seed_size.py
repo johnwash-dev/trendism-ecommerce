@@ -41,13 +41,13 @@ def seed_category_sizes():
         # Logic for categorization
         if any(kw in name for kw in ['kids', 'boy', 'girl']):
             target_sizes = kids_wear_sizes
-        elif any(kw in name for kw in ['kurti', 'kurta', 'ethnic', 'set']):
+        elif any(kw in name for kw in ['kurti', 'kurta', 'ethnic', 'set',]):
             target_sizes = ethnic_wear_sizes
         elif any(kw in name for kw in ['vest', 'undershirt', 'bra']):
             target_sizes = top_wear_sizes
         elif any(kw in name for kw in ['brief', 'trunk', 'boxer', 'panty', 'innerwear']):
             target_sizes = bottom_wear_sizes
-        elif any(kw in name for kw in ['shirt', 't-shirt', 'top', 'sweater', 'sweatshirt', 'western', 'hoodies']):
+        elif any(kw in name for kw in ['shirt', 't-shirt', 'top', 'sweater', 'sweatshirt', 'western', 'hoodies','eid']):
             target_sizes = top_wear_sizes
         elif any(kw in name for kw in ['pant', 'jean', 'trouser', 'short', 'legging', 'jegging', 'lower']):
             target_sizes = bottom_wear_sizes

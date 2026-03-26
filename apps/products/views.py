@@ -20,6 +20,11 @@ def product_list(request):
     min_discount = request.GET.get('min_discount')
     q_search = request.GET.get('q')
 
+
+    is_eid_banner = False
+    if cat_parameter and 'eid-collection' in cat_parameter.lower():
+        is_eid_banner = True
+
     show_categories = True
     if cat_parameter:
         # Gen Z logic 
@@ -124,10 +129,14 @@ def product_list(request):
 
     available_brands = products.values_list('brand', flat=True).distinct().order_by('brand')
     sub_categories = []
-    if gender_parameter and gender_parameter.lower() != 'gen z':
+    if is_eid_banner:
+        sub_categories = Category.objects.filter(parent__slug__icontains='eid-collection')
+    elif gender_parameter and gender_parameter.lower() != 'gen z':
         sub_categories = Category.objects.filter(parent__name__iexact=gender_parameter)
     
-    all_sub_categories = Category.objects.exclude(parent=None).exclude(parent__name__iexact='Gen Z')
+    all_sub_categories = Category.objects.exclude(parent=None).exclude(
+        Q(parent__name__iexact='Gen Z') | Q(name__iexact='Gen Z')
+    )
 
     all_colors = Color.objects.filter(product__in=products).distinct()
 
@@ -144,12 +153,14 @@ def product_list(request):
         'products': products.distinct(),
         'sort_by': sort_by,
         'show_categories': show_categories,
+        'is_eid_banner' : is_eid_banner,
         'brands_preview': available_brands[:10], 
         'brands_more': available_brands[10:], 
         'colors_preview': all_colors[:10],      
         'colors_more': all_colors[10:],         
-        'sub_categories': sub_categories[:10],  
-        'all_sub_categories': all_sub_categories,
+        'sub_categories': sub_categories,  
+        'preview_categories': all_sub_categories[:10],
+        'more_categories': all_sub_categories[10:],
     }
    
     return render(request, 'products/productList.html', context)

@@ -1,4 +1,4 @@
-function fetchFilteredProducts() {
+function fetchFilteredProducts(eventTarget = null) { 
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
 
@@ -17,22 +17,26 @@ function fetchFilteredProducts() {
 
     const price = document.querySelector('input[name="price"]:checked');
     if (price) params.set('price', price.value);
+    else params.delete('price'); 
 
     const discount = document.querySelector('input[name="discount"]:checked');
     if (discount) params.set('min_discount', discount.value);
+    else params.delete('min_discount');
 
     const sort = document.querySelector('input[name="sort"]:checked');
+    const desktopBtn = document.getElementById('desktopSortBtn');
+
     if (sort) {
         params.set('sort', sort.value);
-        const desktopBtn = document.getElementById('desktopSortBtn');
         if (desktopBtn) {
             const label = sort.closest('label');
             const labelText = label.querySelector('span') ? label.querySelector('span').innerText : label.innerText.trim();
             desktopBtn.innerText = `SORT BY: ${labelText}`;
-        } else {
-            params.set('sort', 'newest')
-            if (desktopBtn) desktopBtn.innerText = `SORT BY: Newest`;
         }
+    } else {
+        
+        params.set('sort', 'newest');
+        if (desktopBtn) desktopBtn.innerText = `SORT BY: Newest`;
     }
 
     const finalUrl = `${url.pathname}?${params.toString()}`;
@@ -40,51 +44,48 @@ function fetchFilteredProducts() {
     fetch(finalUrl, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('ajax-product-section').innerHTML = html;
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('ajax-product-section').innerHTML = html;
 
-            const newCount = document.getElementById('current-count-hidden')?.value
-            const countDisplay = document.getElementById('product-count')
+        const newCount = document.getElementById('current-count-hidden')?.value;
+        const countDisplay = document.getElementById('product-count');
 
-            if (countDisplay && newCount !== undefined) {
-                countDisplay.innerText = newCount + " Items Found"
-            }
+        if (countDisplay && newCount !== undefined) {
+            countDisplay.innerText = newCount + " Items Found";
+        }
 
-            window.history.pushState({}, '', finalUrl);
+        window.history.pushState({}, '', finalUrl);
 
-            const sortCanvas = document.getElementById('sortCanvas');
-            if (sortCanvas && e.target.name === 'sort') {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(sortCanvas);
-                if (bsOffcanvas) bsOffcanvas.hide();
-            }
-        })
-        .finally(() => {
-            if (spinner) spinner.classList.add('d-none');
-            if (section) section.classList.remove('loading-active');
-        });
-
+        const sortCanvas = document.getElementById('sortCanvas');
+        if (sortCanvas && eventTarget && eventTarget.name === 'sort') {
+            const bsOffcanvas = bootstrap.Offcanvas.getInstance(sortCanvas);
+            if (bsOffcanvas) bsOffcanvas.hide();
+        }
+    })
+    .finally(() => {
+        if (spinner) spinner.classList.add('d-none');
+        if (section) section.classList.remove('loading-active');
+    });
 }
 
 document.addEventListener('change', function (e) {
     if (e.target.classList.contains('form-check-input') || e.target.name === 'sort') {
-        fetchFilteredProducts()
+        fetchFilteredProducts(e.target); 
     }
 });
 
 document.addEventListener('click', function (e) {
     if (e.target.id === 'clear-all-btn') {
         e.preventDefault();
-
         document.querySelectorAll('.form-check-input').forEach(input => {
             if (input.name !== 'category') {
                 input.checked = false;
             }
         });
-
         const defaultSort = document.querySelector('input[name="sort"][value="newest"]');
         if (defaultSort) defaultSort.checked = true;
-
+        
         fetchFilteredProducts();
     }
 });
