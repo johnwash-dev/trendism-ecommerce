@@ -137,7 +137,8 @@ def product_list(request):
     all_sub_categories = Category.objects.exclude(parent=None).exclude(
         Q(parent__name__iexact='Gen Z') | 
         Q(name__icontains='Gen Z') | 
-        Q(slug__icontains='gen-z')
+        Q(slug__icontains='gen-z') |
+        Q(name__icontains='Under ₹')
     )
 
     all_colors = Color.objects.filter(product__in=products).distinct()
