@@ -135,7 +135,9 @@ def product_list(request):
         sub_categories = Category.objects.filter(parent__name__iexact=gender_parameter)
     
     all_sub_categories = Category.objects.exclude(parent=None).exclude(
-        Q(parent__name__iexact='Gen Z') | Q(name__iexact='Gen Z')
+        Q(parent__name__iexact='Gen Z') | 
+        Q(name__icontains='Gen Z') | 
+        Q(slug__icontains='gen-z')
     )
 
     all_colors = Color.objects.filter(product__in=products).distinct()
