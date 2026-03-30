@@ -1,4 +1,97 @@
+
+
+function get_cookie(name){
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== ""){
+    const cookies = document.cookie.split(';')
+    for (let i=0; i < cookies.length;i++){
+      const cookie = cookies[i].trim()
+
+      if (cookie.substring(0, name.length + 1) === (name + '=')){
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+const csrfToken = get_cookie('csrftoken')
+
+async function toggleWishlist(productId, element, isWishlistPage=false){
+  try{
+    const response = await fetch(`/carts/toggle/${productId}/`,{
+      method : 'POST',
+      headers: {
+        'X-CSRFToken': get_cookie('csrftoken'),
+        'content-type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+
+      if (response.status === 401) {
+            window.location.href = "/accounts/";
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'added') {
+            element.classList.add('active');
+            const icon = element.querySelector('i');
+            if (icon) icon.classList.replace('fa-regular', 'fa-solid');
+        } else if (data.status === 'removed' || data.status === 'remove') {
+           if (isWishlistPage) {
+                const rowElement = document.getElementById(`wishlist-row-${productId}`);
+                if (rowElement) {
+                    rowElement.classList.add('fade-out'); 
+                    
+                    setTimeout(() => {
+                        rowElement.remove(); 
+                        
+                        const countSpan = document.querySelector('.wishlist-header span');
+                        if(countSpan) {
+                             
+                        }
+                    }, 500);
+                }
+            } else {
+                element.classList.remove('active');
+            }
+        }
+  }catch(error){
+    console.error("Wishlist Error:", error);
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: 'Connection Error',
+        text: 'Please check your internet or try again later.',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        iconColor: '#ff3e6c', 
+    });
+  }
+}
+
+
+
+
+let globalSelectedSizeId = null
+
 document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('click', function (e) {
+        const target = e.target.closest('.wishlist-icon, .wishlist-btn');
+        if (target) {
+            e.preventDefault();
+            e.stopPropagation();
+            const productId = target.getAttribute('data-product-id');
+            if (productId) {
+                toggleWishlist(productId, target);
+            }
+        }
+    });
+
   const dropdownWrap = document.querySelector(".profile-dropdown");
   const menu = document.getElementById("profileDropdown");
   const icon = document.querySelector(".profile-trigger");
@@ -110,4 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 500);
     });
   });
+
+  
+
 });

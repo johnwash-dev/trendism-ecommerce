@@ -24,6 +24,14 @@
             </div>
             {% endfor %}
         </div>
+        <div class="mobile-wish-share">
+          <div class="icon-circle wishlist-btn {% if is_in_wishlist %}active{% endif %}" data-product-id="{{ product.id }}">
+            <i class="fa-regular fa-heart"></i>
+          </div>
+          <div class="icon-circle mt-2" onclick="copyLink()">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+        </div>
         <div class="swiper-pagination"></div>
       </div>
 
@@ -50,7 +58,22 @@
                </ol>
              </nav>
            </small>
-            <h1 class="brand-name">{{ product.brand|upper }}</h1>
+           <div class="d-flex justify-content-between align-items-center">
+              <h1 class="brand-name mb-0">{{ product.brand|upper }}</h1>
+    
+             <div class="d-none d-md-flex gap-2">
+                <div class="wishlist-btn {% if is_in_wishlist %}active{% endif %} cursor-pointer" data-product-id="{{ product.id }}">
+                  <div class="icon-circle-desktop">
+                    <i class="{% if is_in_wishlist %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+                  </div>
+                </div>
+                <div class="cursor-pointer" onclick="copyLink()">
+                  <div class="icon-circle-desktop">
+                    <i class="fa-solid fa-share-nodes"></i>
+                  </div>
+                </div>
+             </div>
+            </div>
             <p class="product-name">{{ product.name }}</p>
 
             <div class="price-section pt-2 border-top">
@@ -84,20 +107,24 @@
               </div>
             </div>
             {% endif %}
-            <div class="mt-2">
+            <div  class="mt-2">
                 <div class="d-flex justify-content-between">
                     <h6 class="fw-bold">SELECT SIZE</h6>
                     <span class="text-pink fw-bold small cursor-pointer" >SIZE CHART ></span>
                 </div>
-                <div class="d-flex gap-md-3 gap-2 px-md-0 px-3 mt-3">
-                    {% for var in product.variations.all %}
-                    <button class="size-btn  " id="size-btns">{{ var.size.name }}</button>
-                    {% endfor %}
+               <div id="size-btns-container" class="d-flex gap-md-3 gap-2 px-md-0 px-3 mt-3">
+                  {% for var in product.variations.all %}
+                    <button type="button" 
+                     class="size-btn d-flex align-items-center justify-content-center" 
+                     data-size-id="{{ var.id }}">
+                     {{ var.size.name }}
+                    </button>
+                  {% endfor %}
                 </div>
             </div>
 
             <div class="btn-container  d-flex gap-3 mt-4 W-100">
-                    <button class="btn btn-group text-center btn-outline-dark   fw-semibold ">
+                    <button class="btn btn-group text-center btn-outline-dark   fw-semibold " onclick="addToCart('{{ product.id }}')">
                     <i class="fa-solid fa-bag-shopping me-2"></i> ADD TO CART
                     </button>
                 

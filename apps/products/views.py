@@ -1,6 +1,7 @@
 import re
 from django.shortcuts import render, get_object_or_404 
 from .models import Product, Category, Color
+from apps.carts.models import Wishlist
 from django.db.models import Q
 from django.db.models.functions import Coalesce
 
@@ -181,10 +182,15 @@ def product_detail(request, slug):
         color_variants = Product.objects.filter(style_group=product.style_group).exclude(id=product.id)
     
     related_products = Product.objects.filter(category=product.category).exclude(id=product.id)[:10]
+
+    is_in_wishlist = False
+    if request.user.is_authenticated:
+        is_in_wishlist = Wishlist.objects.filter(user=request.user, product=product).exists()
     
     return render(request, 'products/detail.html', {
         'product': product,
         'related_products': related_products,
         'discount_percentage' : discount_percentage,
-        'color_variants': color_variants
+        'color_variants': color_variants,
+        'is_in_wishlist': is_in_wishlist,
     })

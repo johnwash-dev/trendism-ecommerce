@@ -61,10 +61,15 @@ document.addEventListener('DOMContentLoaded', function () {
        },
     });
 
-    document.querySelectorAll('.wishlist-icon').forEach(icon => {
-        icon.addEventListener('click', function(e) {
-            e.preventDefault();
-            icon.classList.toggle('active');
-        });
-    });
+    // const wishlistIcons = document.querySelectorAll('.wishlist-icon')
+
+    // wishlistIcons.forEach(icon =>{
+    //     icon.addEventListener('click',function(e){
+    //         e.preventDefault()
+    //         e.stopPropagation()
+
+    //         const productId = this.dataset.productId;
+    //         toggleWishlist(productId, this)
+    //     })
+    // })
 });

@@ -1,7 +1,7 @@
 body{
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     color: #282c3f;
-    background-color: #f4f4f4 !important;
+    background-color: #ffffff !important;
     margin: 0;
     padding: 0;
 }
@@ -38,3 +38,4 @@ body{
     opacity: 0;
     visibility: hidden;
 }
+

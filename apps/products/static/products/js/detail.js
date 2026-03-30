@@ -52,14 +52,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.querySelectorAll("#size-btns").forEach(size =>{
+    const sizeBtns = document.querySelectorAll(".size-btn")  
+    const btnsContainer = document.getElementById('size-btns-container');
+    sizeBtns.forEach(size =>{
         size.addEventListener('click', ()=>{
-            document.querySelectorAll(".size-btn").forEach(btns =>{
-                btns.classList.remove("btn-active")
-            })
-            size.classList.add("btn-active")
+            sizeBtns.forEach(btns => btns.classList.remove("btn-active"))
+            this.classList.add("btn-active")
+
+            globalSelectedSizeId = this.getAttribute('data-size-id');
+
+            if (btnsContainer) {
+                btnsContainer.classList.remove('shake-it');
+            }
+
         })
     })
+
+    // const wishlistBtn = document.querySelector('.wishlist-btn')
+    // if (wishlistBtn){
+    //     wishlistBtn.addEventListener('click', function(){
+    //         const productId = this.dataset.productId;
+    //         toggleWishlist(productId, this)
+    //     })
+    // }
+
 });
 
 function changeImage(src, element) {

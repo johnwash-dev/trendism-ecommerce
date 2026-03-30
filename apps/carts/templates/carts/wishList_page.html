@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components/product_card.css' %}">
+
+<link rel="stylesheet" href="{% static 'carts/css/wishlist.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container wishlist-container font-text mt-5">
+    <div class="wishlist-header mb-4">
+        <h5 class="fw-bold">My Wishlist <span class="fw-normal text-muted small">({{ wishlist_items|length }} Items)</span></h5>
+    </div>
+
+    <div class="row gx-md-5 gx-4 gy-3 gy-md-5">
+        {% if wishlist_items %}
+            {% for item in wishlist_items %}
+            <div class="col-6 col-md-4 col-lg-3" id="wishlist-row-{{ item.product.id }}">
+                <div class="product-card gap-3">
+                    <div class="remove-wishlist" onclick="toggleWishlist('{{ item.product.id }}', this, true)">
+                        <i class="fa-solid fa-xmark text-muted"></i>
+                    </div>
+
+                    <a href="{% url 'product_detail' item.product.slug %}" class="text-decoration-none text-dark">
+                        <div class="image-wrapper">
+                            <img src="{{ item.product.thumbnail.url }}" alt="{{ item.product.name }}">
+                        </div>
+                        <div class="product-info px-2">
+                            <div class="brand-name">{{ item.product.brand }}</div>
+                            <div class="product-name">{{ item.product.name }}</div>
+                            <div class="price-container">
+                                ₹ {{ item.product.discount_price|floatformat:0 }}
+                                <span class="original-price">₹ {{ item.product.original_price|floatformat:0 }}</span>
+                                <span class="discount-text">({{ item.product.discount_percentage }}% OFF)</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="p- border-top">
+                        <button class="move-to-bag-btn w-100 py-2" data-bs-toggle="modal" data-bs-target="#quickSizeModal{{ item.product.id }}">
+                            MOVE TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Your wishlist is empty!</p>
+                <a href="{% url 'product_list' %}" class="btn btn-pink px-4 py-2">Continue Shopping</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

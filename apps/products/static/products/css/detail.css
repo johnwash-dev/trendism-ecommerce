@@ -187,9 +187,83 @@ body{
     border: 1px solid #3d3d3d !important;   
 }
 
-.btn-active{
+.size-btn.btn-active{
     border: 1px solid #ff3f6c; 
     color: #ff3f6c; 
+}
+
+/* Mobile Floating Icons */
+.mobile-wish-share {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    color: #282c3f;
+}
+
+.icon-circle-desktop {
+    border: 1px solid #d4d5d9;
+    height: 35px;
+    width: 35px; /* Padding konjam kammi panni neat-ah vachukalam */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #282c3f;
+    background: #fff;
+    cursor: pointer;
+}
+
+
+.wishlist-icon.active i, 
+.wishlist-btn.active i,
+.wishlist-btn.active .icon-circle-desktop i {
+    color: #ff3e6c !important; 
+    font-weight: 900 !important; 
+    transition: all 0.3s ease;
+}
+
+.wishlist-icon.active, 
+.wishlist-btn.active,
+.wishlist-btn.active .icon-circle-desktop {
+    background-color: transparent !important; 
+    border-color: #ff3e6c !important; 
+}
+
+.wishlist-btn.active.icon-circle,
+.wishlist-btn.active .icon-circle-desktop {
+    background-color: #ffffff !important;
+}
+
+/* Shake Animation */
+
+#size-btns-container.shake-it {
+    animation: surgical-shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+    border: 1px solid #ff3e6c !important;
+}
+
+
+@keyframes surgical-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+    40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+
+.cursor-pointer { 
+    cursor: pointer; 
 }
 
 .product-desc{

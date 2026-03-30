@@ -1,11 +1,11 @@
 body {
   background-color: #ffffff !important;
-  font-family: "Roboto", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 .card-title,
 .category-name,
 .price-wrapper {
-  font-family: "Roboto", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 .bg-color{
@@ -95,26 +95,48 @@ body {
 }
 
 
-
 .wishlist-icon i {
-    color: rgba(255, 255, 255, 0.714);
+    color: rgba(255, 255, 255, 0.714) !important;
     transition: color 0.3s ease;
     font-size: 1.1rem;
+    border: none !important;
 }
-.wishlist-icon.active i {
-    color: #ff3e6c;
+
+
+.wishlist-icon.active i, 
+.wishlist-btn.active i,
+.wishlist-btn.active .icon-circle-desktop i {
+    color: #ff3e6c !important; 
+    font-weight: 900 !important; 
+    transition: all 0.3s ease;
+}
+
+
+.wishlist-icon.active, 
+.wishlist-btn.active,
+.wishlist-btn.active .icon-circle-desktop {
+    background-color: transparent !important; 
+    border-color: #ff3e6c !important; 
+}
+
+.wishlist-btn.active.icon-circle,
+.wishlist-btn.active .icon-circle-desktop {
+    background-color: #ffffff !important;
 }
 
 
 .product-card {
   transition: all 0.3s ease-in-out;
   border-radius: 5px;
+  height: fit-content;
 }
 
 .product-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
 }
+
+
 
 .image-wrapper {
   width: 100%;
@@ -155,6 +177,36 @@ body {
 
 .product-card:hover .image-wrapper img {
   transform: scale(1.08);
+}
+
+/* pop up modal */
+
+.home-size-btn {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 8px 12px;
+    min-width: 45px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.home-size-btn.active-size {
+    border-color: #ff3e6c;
+    color: #ff3e6c;
+    background-color: #fff0f3;
+}
+
+.btn-pink {
+    background-color: #ff3e6c;
+    color: white;
+    border: none;
+}
+
+.btn-pink:hover {
+    background-color: #e63561;
+    color: white;
 }
 
 

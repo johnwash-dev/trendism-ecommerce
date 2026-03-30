@@ -80,38 +80,71 @@
 </div>
 
 <div class="container product-container p-3 mt-1 mb-2">
-    <h3 class="text-center  mb-4 font-title">FEATURED PRODUCTS</h3>
-    <div class="row">
+    <h3 class="text-center mb-4 font-title">FEATURED PRODUCTS</h3>
+    <div class="row gx-md-5 gx-2 gy-2 gy-md-3">
         {% for product in featured_product %}
         <div class="col-6 col-md-4 col-lg-3 mb-4">
             <div class="card h-100 product-card shadow-sm border-0">
-              <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none text-dark">
-                <div class="image-wrapper text-center position-relative">
-                    <img src="{{ product.thumbnail.url }}" class="card-img-top img-fluid " alt="{{ product.name }}">
-                    <a href="#" class="wishlist-icon position-absolute top-0 end-0 p-2 text-dark">
-                        <i class="fa-solid fa-heart "></i>
-                    </a>
-                    {% if product.get_discount_percent > 0 %}
-                    <div class="badge-container">
-                     <span class="badge badge-danger px-lg-2 px-md-2 px-1 fw-semibold py-1">{{ product.discount_percentage }}% OFF</span>
-                    </div>
-                    {% endif %}
-                </div>
-
-                <div class="card-body d-flex flex-column  pt-0">
-                    <h6 class=" fw-semibold  mb-1">{{ product.brand|upper }}</h6>
-                    <p class="card-title small text-muted mb-md-2 mb-1">{{ product.name }}</p>
-                    
-                    <div class="price-wrapper mb-md-2 mb-1">
-                        {% if product.discount_price and product.discount_price > 0 %}
-                        <span class="h5 font-weight-bold text-dark">₹{{ product.discount_price }}</span>
-                        <span class="text-muted small ml-2"><del>₹{{ product.original_price }}</del></span>
-                        {% else %}
-                        <span class="h5 font-weight-bold">₹{{ product.original_price }}</span>
+                <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none text-dark">
+                    <div class="image-wrapper text-center position-relative">
+                        <img src="{{ product.thumbnail.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+                        <div class="wishlist-icon {% if product.id in user_wishlist_ids %}active{% endif %} position-absolute  top-0 end-0 p-2 text-dark cursor-pointer" data-product-id="{{ product.id }}">
+                            <i class="{% if product.id in user_wishlist_ids %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
+                        </div>
+                        {% if product.discount_percentage > 0 %}
+                        <div class="badge-container">
+                            <span class="badge badge-danger px-lg-2 px-md-2 px-1 fw-semibold py-1">{{ product.discount_percentage }}% OFF</span>
+                        </div>
                         {% endif %}
                     </div>
-              </a>
-                    <a href="#" class="btn btn-dark btn-block mt-auto font-weight-bold shadow-sm">Add to card</a>
+
+                    <div class="card-body d-flex flex-column py-0">
+                        <h6 class="fw-semibold mb-1">{{ product.brand|upper }}</h6>
+                        <p class="card-title small text-muted mb-md-2 mb-1">{{ product.name }}</p>
+                        
+                        <div class="price-wrapper mb-md-2 mb-1">
+                            {% if product.discount_price and product.discount_price > 0 %}
+                            <span class="h6 font-weight-bold fw-bold text-dark">₹ {{ product.discount_price }}</span>
+                            <span class="text-muted small ml-2"><del>₹{{ product.original_price }}</del></span>
+                            {% else %}
+                            <span class="h6 fw-bold font-weight-bold">₹{{ product.original_price }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="px-2 pb-2 ">
+                    <button class="btn btn-dark btn-block w-100 font-weight-bold shadow-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#quickSizeModal{{ product.id }}">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="quickSizeModal{{ product.id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content rounded-4 border-0">
+                    <div class="modal-header border-0 pb-0">
+                        <h6 class="fw-bold mb-0">Select Size</h6>
+                        <button type="button" class="btn-close small" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex gap-2 flex-wrap justify-content-center mb-3" id="size-container-{{ product.id }}">
+                            {% for var in product.variations.all %}
+                                <button type="button" 
+                                        class="home-size-btn" 
+                                        data-size-id="{{ var.id }}"
+                                        onclick="handleHomeSizeSelect(this, '{{ product.id }}')">
+                                    {{ var.size.name }}
+                                </button>
+                            {% endfor %}
+                        </div>
+                        <button class="btn btn-pink w-100 fw-bold py-2" onclick="processHomeCartAdd('{{ product.id }}')">
+                            DONE
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
