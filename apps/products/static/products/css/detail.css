@@ -215,7 +215,7 @@ body{
 .icon-circle-desktop {
     border: 1px solid #d4d5d9;
     height: 35px;
-    width: 35px; /* Padding konjam kammi panni neat-ah vachukalam */
+    width: 35px; 
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -244,21 +244,6 @@ body{
 .wishlist-btn.active.icon-circle,
 .wishlist-btn.active .icon-circle-desktop {
     background-color: #ffffff !important;
-}
-
-/* Shake Animation */
-
-#size-btns-container.shake-it {
-    animation: surgical-shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
-    border: 1px solid #ff3e6c !important;
-}
-
-
-@keyframes surgical-shake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
-    40%, 60% { transform: translate3d(3px, 0, 0); }
 }
 
 

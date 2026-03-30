@@ -116,7 +116,8 @@
                 <div class="px-2 pb-2 ">
                     <button class="btn btn-dark btn-block w-100 font-weight-bold shadow-sm" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#quickSizeModal{{ product.id }}">
+                            data-bs-target="#quickSizeModal{{ product.id }}"
+                            >
                         Add to Cart
                     </button>
                 </div>
@@ -136,12 +137,12 @@
                                 <button type="button" 
                                         class="home-size-btn" 
                                         data-size-id="{{ var.id }}"
-                                        onclick="handleHomeSizeSelect(this, '{{ product.id }}')">
+                                        onclick="selectProductSize(this, '{{ var.id }}', 'size-container-{{ product.id }}')">
                                     {{ var.size.name }}
                                 </button>
                             {% endfor %}
                         </div>
-                        <button class="btn btn-pink w-100 fw-bold py-2" onclick="processHomeCartAdd('{{ product.id }}')">
+                        <button class="btn btn-pink w-100 fw-bold py-2" onclick="add_to_cart('{{ product.id }}', true)">
                             DONE
                         </button>
                     </div>

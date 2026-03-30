@@ -116,7 +116,9 @@
                   {% for var in product.variations.all %}
                     <button type="button" 
                      class="size-btn d-flex align-items-center justify-content-center" 
-                     data-size-id="{{ var.id }}">
+                     data-size-id="{{ var.id }}"
+                     onclick="selectProductSize(this, '{{ var.id }}', 'size-btns-container')"
+                     >
                      {{ var.size.name }}
                     </button>
                   {% endfor %}
@@ -124,7 +126,7 @@
             </div>
 
             <div class="btn-container  d-flex gap-3 mt-4 W-100">
-                    <button class="btn btn-group text-center btn-outline-dark   fw-semibold " onclick="addToCart('{{ product.id }}')">
+                    <button class="btn btn-group text-center btn-outline-dark   fw-semibold " onclick="add_to_cart('{{ product.id }}')">
                     <i class="fa-solid fa-bag-shopping me-2"></i> ADD TO CART
                     </button>
                 

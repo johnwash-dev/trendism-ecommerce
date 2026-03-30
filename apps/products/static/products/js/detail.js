@@ -68,14 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
-    // const wishlistBtn = document.querySelector('.wishlist-btn')
-    // if (wishlistBtn){
-    //     wishlistBtn.addEventListener('click', function(){
-    //         const productId = this.dataset.productId;
-    //         toggleWishlist(productId, this)
-    //     })
-    // }
-
 });
 
 function changeImage(src, element) {

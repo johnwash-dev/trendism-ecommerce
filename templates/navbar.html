@@ -105,10 +105,10 @@
         </div>
         {% endif %}
         <a href="{% url "wishlist_list" %}" class="text-dark px-2"><i class="fa-regular fa-heart"></i></a>
-        <a href="#" class="text-dark px-2 position-relative">
+        <a href="{% url "cart_detail" %}" class="text-dark px-2 position-relative">
           <i class="fa-solid fa-bag-shopping"></i>
-          <span id="cart-counter" class="position-absolute translate-middle badge rounded-pill bg-danger bag-span" 
-            >0</span
+          <span id="cart-counter" class="cart-counter position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger bag-span" 
+            >{{ cart_count|default:"0" }}</span
           >
         </a>
       </div>
