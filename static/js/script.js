@@ -46,8 +46,23 @@ async function toggleWishlist(productId, element, isWishlistPage = false) {
           setTimeout(() => {
             rowElement.remove();
 
-            const countSpan = document.querySelector(".wishlist-header span");
-            if (countSpan) {
+            const countSpan = document.getElementById("wishlist-count");
+            if (countSpan && data.wishlist_count !== undefined) {
+              countSpan.innerText = `(${data.wishlist_count} Items)`;
+            }
+
+            // Check if wishlist is now empty and show empty message
+            if (data.wishlist_count === 0) {
+              const rowContainer = document.querySelector(".wishlist-row");
+              if (rowContainer) {
+                const emptyMessage = document.createElement("div");
+                emptyMessage.className = "col-12 text-center py-5";
+                emptyMessage.innerHTML = `
+                  <p class="text-muted">Your wishlist is empty!</p>
+                  <a href="/products/" class="btn btn-pink px-4 py-2">Continue Shopping</a>
+                `;
+                rowContainer.appendChild(emptyMessage);
+              }
             }
           }, 500);
         }
@@ -56,7 +71,6 @@ async function toggleWishlist(productId, element, isWishlistPage = false) {
       }
     }
   } catch (error) {
-    console.error("Wishlist Error:", error);
     Swal.fire({
       toast: true,
       position: "top-end",
@@ -93,7 +107,6 @@ function selectProductSize(element, sizeId, containerId) {
 }
 
 async function add_to_cart(productId, isModal = false) {
-  console.log("Adding Product:", productId, "with Size:", globalSelectedSizeId);
   const containerId = isModal
     ? `size-container-${productId}`
     : `size-btns-container`;
@@ -165,7 +178,17 @@ async function add_to_cart(productId, isModal = false) {
       Swal.fire({ icon: "error", title: "Oops...", text: data.message });
     }
   } catch (error) {
-    console.error("cart Error:", error);
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Connection Error",
+      text: "Please check your internet or try again later.",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      iconColor: "#ff3e6c",
+    });
   }
 }
 
@@ -177,10 +200,7 @@ async function updateQuantity(itemId, action) {
       method: "GET",
       headers: { "X-Requested-With": "XMLHttpRequest" },
     });
-    if (!response.ok) {
-      console.error(`Server Error: ${response.status}`);
-      return;
-    }
+    
     const data = await response.json();
 
     if (data.status === "success") {
@@ -225,7 +245,17 @@ async function updateQuantity(itemId, action) {
       navCartCount.innerText = data.cart_count;
     }
   } catch (error) {
-    console.error("Error updating cart:", error);
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Connection Error",
+      text: "Please check your internet or try again later.",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      iconColor: "#ff3e6c",
+    });
   }
 }
 
@@ -261,7 +291,17 @@ async function removeItem(itemId) {
       if (navCartCount) navCartCount.innerText = data.cart_count;
     }
   } catch (error) {
-    console.error("Remove Error:", error);
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: "Connection Error",
+      text: "Please check your internet or try again later.",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      iconColor: "#ff3e6c",
+    });
   }
 }
 

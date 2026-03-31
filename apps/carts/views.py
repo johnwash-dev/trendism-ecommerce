@@ -13,12 +13,17 @@ def cart_detail_page(request):
     return render(request, 'carts/cart_detail.html', {'cart':cart})
 
 def wishList_page(request):
-    wishlist_items=[]
+    wishlist_items = []
+    wishlist_count = 0
 
     if request.user.is_authenticated:
         wishlist_items = Wishlist.objects.filter(user=request.user).select_related('product')
+        wishlist_count = wishlist_items.count()
 
-    return render(request, 'carts/wishList_page.html', {'wishlist_items':wishlist_items})
+    return render(request, 'carts/wishList_page.html', {
+        'wishlist_items': wishlist_items,
+        'wishlist_count': wishlist_count,
+    })
 
 def add_to_cart(request):
     if not request.user.is_authenticated:
@@ -122,10 +127,8 @@ def toggle_wishlist(request, product_id):
 
         if not created:
             wishlist_item.delete()
-            return JsonResponse({'status': 'removed'})
-        
-        return JsonResponse({'status': 'added'})
-    
-    return JsonResponse({'status': 'invalid_request'}, status=400)
+            wishlist_count = Wishlist.objects.filter(user=request.user).count()
+            return JsonResponse({'status': 'removed', 'wishlist_count': wishlist_count})
 
-
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+        return JsonResponse({'status': 'added', 'wishlist_count': wishlist_count})
