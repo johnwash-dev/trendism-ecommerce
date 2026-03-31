@@ -33,10 +33,14 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         if not user.username:
             email = data.get("email")
             if email:
-                prefix = email.split('@')[0]
-                user.username = f"{prefix}_{uuid.uuid4().hex[:6]}"
+                base_username = email.split('@')[0]
+                
+                if User.objects.filter(username=base_username).exists():
+                    user.username = f"{base_username}_{uuid.uuid4().hex[:4]}"
+                else:
+                    user.username = base_username
             else:
-                user.username = f"user_{uuid.uuid4().hex[:10]}"
+                user.username = f"user_{uuid.uuid4().hex[:8]}"
         
         return user
 
