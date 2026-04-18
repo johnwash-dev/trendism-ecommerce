@@ -105,7 +105,7 @@ def remove_from_cart(request, item_id):
     cart = item.cart
     item.delete()
     
-    # AJAX request-ah check pandrom
+    
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({
             'status': 'removed',

@@ -243,7 +243,3 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-73b47.up.railway.app',
-]
