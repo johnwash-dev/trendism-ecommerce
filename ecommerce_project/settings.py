@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = [
-    'web-production-73b47.up.railway.app',
+    'trendism-ecommerce.onrender.com',
     'localhost',
     '127.0.0.1',
 ]
@@ -231,7 +231,7 @@ USE_X_FORWARDED_PORT = True
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://vivacious-possibility-production.up.railway.app',
+    'https://trendism-ecommerce.onrender.com',
 ]
 
 
