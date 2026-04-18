@@ -179,24 +179,24 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
-            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
-            'key': '' 
-        },
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'METHOD': 'oauth2',
-        'VERIFIED_EMAIL': True
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'APP': {
+#             'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+#             'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+#             'key': '' 
+#         },
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         },
+#         'METHOD': 'oauth2',
+#         'VERIFIED_EMAIL': True
+#     }
+# }
 
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
