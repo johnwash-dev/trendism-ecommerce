@@ -163,12 +163,15 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-if DEBUG:
-    SITE_ID = 1
-    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
-else:
-    SITE_ID = 30002
-    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+# if DEBUG:
+#     SITE_ID = 1
+#     ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+# else:
+#     SITE_ID = 30002
+#     ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+SITE_ID = 1
+
 
 AUTHENTICATION_BACKENDS = [
     'apps.accounts.auth_backends.EmailOTPBackend',
